@@ -1,8 +1,12 @@
 import { Main } from "../main/main";
 
-const App = () => {
+type AppProps = {
+  offersCount: number;
+};
+
+const App = ({offersCount}: AppProps) => {
   return (
-    <Main />
+    <Main offersCount={offersCount} />
   );
 }
 
