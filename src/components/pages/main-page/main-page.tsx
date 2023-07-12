@@ -1,10 +1,10 @@
-import { PlaceCard } from '../place-card/place-card';
+import { PlaceCard } from '../../place-card/place-card';
 
 type MainProps = {
   offersCount: number;
 };
 
-const Main = ({offersCount}: MainProps) => (
+const MainPage = ({offersCount}: MainProps) => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -130,4 +130,4 @@ const Main = ({offersCount}: MainProps) => (
   </div>
 );
 
-export { Main };
+export { MainPage };

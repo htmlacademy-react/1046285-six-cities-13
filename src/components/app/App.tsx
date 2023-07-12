@@ -1,11 +1,11 @@
-import { Main } from '../main/main';
+import { MainPage } from '../pages/main-page/main-page';
 
 type AppProps = {
   offersCount: number;
 };
 
 const App = ({ offersCount }: AppProps) => (
-  <Main offersCount={offersCount} />
+  <MainPage offersCount={offersCount} />
 );
 
 export { App };

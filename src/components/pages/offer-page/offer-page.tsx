@@ -1,4 +1,4 @@
-const Offer = () => (
+const OfferPage = () => (
   <main className="page__main page__main--offer">
     <section className="offer">
       <div className="offer__gallery-container container">
@@ -411,4 +411,4 @@ const Offer = () => (
   </main>
 );
 
-export { Offer };
+export { OfferPage };

@@ -1,4 +1,4 @@
-const Login = () => (
+const LoginPage = () => (
   <main className="page__main page__main--login">
     <div className="page__login-container container">
       <section className="login">
@@ -40,4 +40,4 @@ const Login = () => (
   </main>
 );
 
-export { Login };
+export { LoginPage };
