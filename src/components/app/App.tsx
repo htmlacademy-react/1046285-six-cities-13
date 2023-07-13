@@ -19,9 +19,9 @@ const App = ({ offersCount }: AppProps) => (
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Root} element={<Layout />}>
-      <Route
+        <Route
           index
-          element={<MainPage offersCount={offersCount}/>}
+          element={<MainPage offersCount={offersCount} />}
         />
         <Route
           path={AppRoute.Favorites}

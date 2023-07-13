@@ -14,4 +14,4 @@ const ErrorPage = () => (
   </main>
 );
 
-export {ErrorPage}
+export { ErrorPage };
