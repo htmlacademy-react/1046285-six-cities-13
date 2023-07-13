@@ -1,25 +1,15 @@
-const errorPageStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100vw',
-  height: '100vh',
-} as const;
-
-const errorLinkStyle ={
-  color: '#4481c3',
-  textDecoration: 'underline',
-} as const;
+import styles from './error-page.module.css';
+import { Link } from 'react-router-dom';
 
 const ErrorPage = () => (
-  <main className="error-page" style={errorPageStyle}>
+  <main className={styles['error-page']}>
     <h1 className="error-page__title">404. Page not found</h1>
     <br />
     <p className="error-page__text">
-      <a className="error-page__link" href="#" style={errorLinkStyle}>
+      Back to&nbsp;
+      <Link className={styles['error-page__link']} to="/">
         main page
-      </a>
+      </Link>
     </p>
   </main>
 );
