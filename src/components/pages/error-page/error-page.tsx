@@ -1,5 +1,6 @@
-import styles from './error-page.module.css';
 import { Link } from 'react-router-dom';
+
+import styles from './error-page.module.css';
 
 const ErrorPage = () => (
   <main className={styles['error-page']}>
