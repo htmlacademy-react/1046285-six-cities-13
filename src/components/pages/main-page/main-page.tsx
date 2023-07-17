@@ -1,10 +1,10 @@
 import { PlaceCard } from '../../place-card/place-card';
 
-type MainProps = {
+type MainPageProps = {
   offersCount: number;
 };
 
-const MainPage = ({offersCount}: MainProps) => (
+const MainPage = ({offersCount}: MainPageProps) => (
   <main className="page__main page__main--index">
     <h1 className="visually-hidden">Cities</h1>
     <div className="tabs">
