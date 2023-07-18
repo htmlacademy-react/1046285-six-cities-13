@@ -10,18 +10,26 @@ import { OfferPage } from '../pages/offer-page/offer-page';
 import { ErrorPage } from '../pages/error-page/error-page';
 import { PrivateRoute } from '../private-route/private-route';
 
+import { Offer } from '../../types/offer';
 
 type AppProps = {
   offersCount: number;
+  offers: Offer[];
 };
 
-const App = ({ offersCount }: AppProps) => (
+const App = ({ offersCount, offers }: AppProps) => (
+
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Root} element={<Layout />}>
         <Route
           index
-          element={<MainPage offersCount={offersCount} />}
+          element={
+            <MainPage
+              offersCount={offersCount}
+              offers={offers}
+            />
+          }
         />
         <Route
           path={AppRoute.Favorites}
