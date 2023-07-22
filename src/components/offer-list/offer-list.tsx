@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { OfferCard } from '../offer-card/offer-card';
 
 import { Offer } from '../../types/offer';
@@ -7,7 +9,10 @@ type OfferListProps = {
 };
 
 const OfferList = ({offers}: OfferListProps) => {
+  const [activeOfferId, setActiveOfferId] = useState('');
   const offerCount = offers.length;
+
+  console.log(activeOfferId);
 
   return (
     <section className="cities__places places">
@@ -45,6 +50,7 @@ const OfferList = ({offers}: OfferListProps) => {
             <OfferCard
               key={offer.id}
               offer={offer}
+              onHover={setActiveOfferId}
             />
           ))
         }

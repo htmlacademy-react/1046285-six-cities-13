@@ -2,10 +2,14 @@ import { Offer } from '../../types/offer';
 
 type OfferCardProps = {
   offer: Offer;
+  onHover?: (id: string) => void;
 };
 
-const OfferCard = ({offer}: OfferCardProps) => (
-  <article className="cities__card place-card">
+const OfferCard = ({offer, onHover}: OfferCardProps) => (
+  <article
+    className="cities__card place-card"
+    onMouseEnter={() => onHover && onHover(offer.id)}
+  >
     {
       offer.isPremium &&
       (
