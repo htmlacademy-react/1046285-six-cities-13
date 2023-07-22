@@ -1,10 +1,10 @@
 import { Offer } from '../../types/offer';
 
-type PlaceCardProps = {
+type OfferCardProps = {
   offer: Offer;
 };
 
-const PlaceCard = ({offer}: PlaceCardProps) => (
+const OfferCard = ({offer}: OfferCardProps) => (
   <article className="cities__card place-card">
     {
       offer.isPremium &&
@@ -58,4 +58,4 @@ const PlaceCard = ({offer}: PlaceCardProps) => (
   </article>
 );
 
-export { PlaceCard };
+export { OfferCard };

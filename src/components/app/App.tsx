@@ -13,11 +13,10 @@ import { PrivateRoute } from '../private-route/private-route';
 import { Offer } from '../../types/offer';
 
 type AppProps = {
-  offersCount: number;
   offers: Offer[];
 };
 
-const App = ({ offersCount, offers }: AppProps) => (
+const App = ({ offers }: AppProps) => (
 
   <BrowserRouter>
     <Routes>
@@ -26,7 +25,6 @@ const App = ({ offersCount, offers }: AppProps) => (
           index
           element={
             <MainPage
-              offersCount={offersCount}
               offers={offers}
             />
           }
