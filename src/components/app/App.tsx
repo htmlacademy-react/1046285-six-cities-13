@@ -46,7 +46,7 @@ const App = ({ offers }: AppProps) => (
           element={<LoginPage />}
         />
         <Route
-          path={AppRoute.Offer}
+          path={`${AppRoute.Offer}`}
           element={<OfferPage />}
         />
       </Route>
