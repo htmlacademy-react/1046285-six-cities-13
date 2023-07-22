@@ -20,7 +20,7 @@ const App = ({ offers }: AppProps) => (
 
   <BrowserRouter>
     <Routes>
-      <Route path={AppRoute.Root} element={<Layout />}>
+      <Route path={AppRoute.Root} element={ <Layout authorizationStatus={AuthorizationStatus.Auth}/> }>
         <Route
           index
           element={

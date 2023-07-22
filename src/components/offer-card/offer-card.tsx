@@ -1,4 +1,6 @@
-import { OfferCardType } from '../../const';
+import { Link } from 'react-router-dom';
+
+import { OfferCardType, AppRoute } from '../../const';
 
 import { Offer } from '../../types/offer';
 
@@ -24,7 +26,7 @@ const OfferCard = ({offer, cardType, onHover}: OfferCardProps) => (
     <div
       className={`${cardType}__image-wrapper place-card__image-wrapper`}
     >
-      <a href="#">
+      <Link to={AppRoute.Offer}>
         <img
           className="place-card__image"
           src={offer.previewImage}
@@ -32,7 +34,7 @@ const OfferCard = ({offer, cardType, onHover}: OfferCardProps) => (
           height={cardType === OfferCardType.General ? 200 : 110}
           alt="Place image"
         />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -56,9 +58,9 @@ const OfferCard = ({offer, cardType, onHover}: OfferCardProps) => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">
+        <Link to={AppRoute.Offer}>
           {offer.title}
-        </a>
+        </Link>
       </h2>
       <p className="place-card__type">
         {offer.type}
