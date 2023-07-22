@@ -8,7 +8,7 @@ export const offers: Offer[] = [
     price: 197,
     previewImage: 'https://13.design.pages.academy/static/hotel/10.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -20,8 +20,8 @@ export const offers: Offer[] = [
       longitude: 2.342499,
       zoom: 16
     },
-    isFavorite: false,
-    isPremium: false,
+    isFavorite: true,
+    isPremium: true,
     rating: 1.1
   },
   {
@@ -43,8 +43,8 @@ export const offers: Offer[] = [
       longitude: 2.330499,
       zoom: 16
     },
-    isFavorite: false,
-    isPremium: true,
+    isFavorite: true,
+    isPremium: false,
     rating: 1.5
   },
   {
@@ -89,7 +89,7 @@ export const offers: Offer[] = [
       longitude: 2.358499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 4.5
   }

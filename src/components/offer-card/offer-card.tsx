@@ -1,13 +1,16 @@
+import { OfferCardType } from '../../const';
+
 import { Offer } from '../../types/offer';
 
 type OfferCardProps = {
   offer: Offer;
+  cardType: string;
   onHover?: (id: string) => void;
 };
 
-const OfferCard = ({offer, onHover}: OfferCardProps) => (
+const OfferCard = ({offer, cardType, onHover}: OfferCardProps) => (
   <article
-    className="cities__card place-card"
+    className={`${cardType}__card place-card`}
     onMouseEnter={() => onHover && onHover(offer.id)}
   >
     {
@@ -18,13 +21,15 @@ const OfferCard = ({offer, onHover}: OfferCardProps) => (
         </div>
       )
     }
-    <div className="cities__image-wrapper place-card__image-wrapper">
+    <div
+      className={`${cardType}__image-wrapper place-card__image-wrapper`}
+    >
       <a href="#">
         <img
           className="place-card__image"
           src={offer.previewImage}
-          width={260}
-          height={200}
+          width={cardType === OfferCardType.General ? 260 : 150}
+          height={cardType === OfferCardType.General ? 200 : 110}
           alt="Place image"
         />
       </a>

@@ -6,12 +6,14 @@ import { Offer } from '../../types/offer';
 
 type OfferListProps = {
   offers: Offer[];
+  cardsType: string;
 };
 
-const OfferList = ({offers}: OfferListProps) => {
+const OfferList = ({offers, cardsType}: OfferListProps) => {
   const [activeOfferId, setActiveOfferId] = useState('');
   const offerCount = offers.length;
 
+  // eslint-disable-next-line no-console
   console.log(activeOfferId);
 
   return (
@@ -51,12 +53,13 @@ const OfferList = ({offers}: OfferListProps) => {
               key={offer.id}
               offer={offer}
               onHover={setActiveOfferId}
+              cardType={cardsType}
             />
           ))
         }
       </div>
     </section>
-  )
+  );
 };
 
 export { OfferList };
