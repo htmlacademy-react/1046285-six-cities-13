@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import { ReviewRatings } from '../../const';
+import { REVIEW_RATING_LEVELS } from '../../const';
 
 type ReviewsRatingProps = {
   currentRating: number;
@@ -20,7 +20,7 @@ const ReviewsRating = ({onChangeRating, currentRating}: ReviewsRatingProps) => {
       onChange={handleRating}
     >
       {
-        ReviewRatings.map((ReviewRating) => {
+        REVIEW_RATING_LEVELS.map((ReviewRating) => {
           const { value, title } = ReviewRating;
           const id = value < 2 ? `${value}-star` : `${value}-stars`;
 
