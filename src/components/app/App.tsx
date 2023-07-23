@@ -10,26 +10,34 @@ import { OfferPage } from '../pages/offer-page/offer-page';
 import { ErrorPage } from '../pages/error-page/error-page';
 import { PrivateRoute } from '../private-route/private-route';
 
+import { Offer } from '../../types/offer';
 
 type AppProps = {
-  offersCount: number;
+  offers: Offer[];
 };
 
-const App = ({ offersCount }: AppProps) => (
+const App = ({ offers }: AppProps) => (
+
   <BrowserRouter>
     <Routes>
-      <Route path={AppRoute.Root} element={<Layout />}>
+      <Route path={AppRoute.Root} element={ <Layout authorizationStatus={AuthorizationStatus.Auth}/> }>
         <Route
           index
-          element={<MainPage offersCount={offersCount} />}
+          element={
+            <MainPage
+              offers={offers}
+            />
+          }
         />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesPage />
+              <FavoritesPage
+                offers={offers}
+              />
             </PrivateRoute>
           }
         />
@@ -38,7 +46,7 @@ const App = ({ offersCount }: AppProps) => (
           element={<LoginPage />}
         />
         <Route
-          path={AppRoute.Offer}
+          path={`${AppRoute.Offer}`}
           element={<OfferPage />}
         />
       </Route>
