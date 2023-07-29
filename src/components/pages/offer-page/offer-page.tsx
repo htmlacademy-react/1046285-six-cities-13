@@ -71,7 +71,7 @@ const OfferPage = ({ offers, offersDetails, reviews }: OfferPageProps) => {
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">{offerDetails?.type}</li>
               <li className="offer__feature offer__feature--bedrooms">
-                {`${offerDetails?.bedrooms} ${offerDetails && offerDetails?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}`}
+                {offerDetails?.bedrooms} Bedrooms
               </li>
               <li className="offer__feature offer__feature--adults">
                 Max {offerDetails?.maxAdults} adults
@@ -135,7 +135,7 @@ const OfferPage = ({ offers, offersDetails, reviews }: OfferPageProps) => {
         </section>
       </div>
     </main>
-  )
+  );
 };
 
 export { OfferPage };

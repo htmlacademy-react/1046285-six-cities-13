@@ -8,7 +8,7 @@ type OfferListProps = {
   cardsType: string;
 };
 
-const OfferList = ({offers, cardsType}: OfferListProps) => {
+const OfferList = ({ offers, cardsType }: OfferListProps) => {
   const [activeOfferId, setActiveOfferId] = useState('');
   const offerCount = offers.length;
 
@@ -17,8 +17,8 @@ const OfferList = ({offers, cardsType}: OfferListProps) => {
 
   return (
     <section
-        className={`${cardsType === OfferCardType.Nearest ? 'near-places': 'cities__places'} places`}
-      >
+      className={`${cardsType === OfferCardType.Nearest ? 'near-places' : 'cities__places'} places`}
+    >
       {
         cardsType !== OfferCardType.Nearest && (
           <>

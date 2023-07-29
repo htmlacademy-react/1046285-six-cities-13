@@ -24,7 +24,7 @@ const App = ({ offers, offersDetails, reviews }: AppProps) => (
 
   <BrowserRouter>
     <Routes>
-      <Route path={AppRoute.Root} element={ <Layout authorizationStatus={AuthorizationStatus.Auth}/> }>
+      <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationStatus.Auth} />}>
         <Route
           index
           element={
@@ -53,9 +53,9 @@ const App = ({ offers, offersDetails, reviews }: AppProps) => (
           path={`${AppRoute.Offer}/:id`}
           element={
             <OfferPage
-            offers={offers}
-            offersDetails={offersDetails}
-            reviews={reviews}
+              offers={offers}
+              offersDetails={offersDetails}
+              reviews={reviews}
             />
           }
         />

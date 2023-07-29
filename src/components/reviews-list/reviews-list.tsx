@@ -1,9 +1,9 @@
-import { ReviewsLimit } from "../../const";
+import { ReviewsLimit } from '../../const';
 
-import { ReviewsItem } from "../reviews-item/reviews-item";
-import { ReviewsForm } from "../reviews-form/reviews-form";
+import { ReviewsItem } from '../reviews-item/reviews-item';
+import { ReviewsForm } from '../reviews-form/reviews-form';
 
-import { Review } from "../../types/review";
+import { Review } from '../../types/review';
 
 type ReviewsListProps = {
   reviews: Review[];
@@ -33,6 +33,6 @@ const ReviewsList = ({reviews}: ReviewsListProps) => {
       <ReviewsForm />
     </section>
   );
-}
+};
 
 export { ReviewsList };

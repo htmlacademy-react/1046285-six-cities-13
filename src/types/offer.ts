@@ -35,13 +35,13 @@ export type OfferDetails = {
   price: number;
   images: string[];
   city: City;
-  location: Location
+  location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host
+  host: Host;
   maxAdults: number;
 };

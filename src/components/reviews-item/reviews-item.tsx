@@ -1,6 +1,6 @@
-import { MONTHS } from "../../const";
+import { MONTHS } from '../../const';
 
-import { Review } from "../../types/review";
+import { Review } from '../../types/review';
 
 type ReviewsItemProps = {
   review: Review;
@@ -41,6 +41,6 @@ const ReviewsItem = ({review}: ReviewsItemProps) => {
       </div>
     </li>
   );
-}
+};
 
 export { ReviewsItem };
