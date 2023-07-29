@@ -11,12 +11,16 @@ import { ErrorPage } from '../pages/error-page/error-page';
 import { PrivateRoute } from '../private-route/private-route';
 
 import { Offer } from '../../types/offer';
+import { OfferDetails } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type AppProps = {
   offers: Offer[];
+  offersDetails: OfferDetails[];
+  reviews: Review[];
 };
 
-const App = ({ offers }: AppProps) => (
+const App = ({ offers, offersDetails, reviews }: AppProps) => (
 
   <BrowserRouter>
     <Routes>
@@ -46,8 +50,14 @@ const App = ({ offers }: AppProps) => (
           element={<LoginPage />}
         />
         <Route
-          path={`${AppRoute.Offer}`}
-          element={<OfferPage />}
+          path={`${AppRoute.Offer}/:id`}
+          element={
+            <OfferPage
+            offers={offers}
+            offersDetails={offersDetails}
+            reviews={reviews}
+            />
+          }
         />
       </Route>
       <Route

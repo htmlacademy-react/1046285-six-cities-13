@@ -26,12 +26,12 @@ const OfferCard = ({offer, cardType, onHover}: OfferCardProps) => (
     <div
       className={`${cardType}__image-wrapper place-card__image-wrapper`}
     >
-      <Link to={AppRoute.Offer}>
+      <Link to={`${AppRoute.Offer}/${offer.id}`}>
         <img
           className="place-card__image"
           src={offer.previewImage}
-          width={cardType === OfferCardType.General ? 260 : 150}
-          height={cardType === OfferCardType.General ? 200 : 110}
+          width={cardType === OfferCardType.General || OfferCardType.Nearest ? 260 : 150}
+          height={cardType === OfferCardType.General || OfferCardType.Nearest ? 200 : 110}
           alt="Place image"
         />
       </Link>

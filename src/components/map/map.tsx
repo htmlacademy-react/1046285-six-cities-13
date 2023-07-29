@@ -1,18 +1,18 @@
 import { useRef, useEffect } from 'react';
+import { MapType } from '../../const';
 import { City } from '../../types/offer';
 import { Marker, layerGroup } from 'leaflet';
 import useMap from '../hooks/use-map';
-
 import { Offer } from '../../types/offer';
-
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   offers: Offer[];
   city: City;
+  mapType: string;
 };
 
-const Map = ({offers, city}: MapProps) => {
+const Map = ({offers, city, mapType}: MapProps) => {
   const selectedOffers = offers.filter((offer) => offer.city.name === city.name);
 
   const mapRef = useRef(null);
@@ -38,7 +38,7 @@ const Map = ({offers, city}: MapProps) => {
   // }, [map]);
 
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={`${mapType === MapType.Main ? MapType.Main : MapType.Offer}__map map`} ref={mapRef}/>
   );
 };
 
