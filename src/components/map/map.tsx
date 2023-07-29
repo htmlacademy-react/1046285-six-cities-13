@@ -35,7 +35,6 @@ const Map = ({offers, city, mapType}: MapProps) => {
       };
     }
   }, [map, selectedOffers]);
-  // }, [map]);
 
   return (
     <section className={`${mapType === MapType.Main ? MapType.Main : MapType.Offer}__map map`} ref={mapRef}/>
