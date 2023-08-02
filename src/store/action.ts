@@ -1,4 +1,4 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit';
 
 export const changeCity = createAction('city/changeCity', (value) => ({
   payload: value,
