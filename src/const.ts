@@ -46,6 +46,10 @@ export const REVIEW_RATING_LEVELS: ReviewRating[] = [
   {value: 1, title: 'terribly'},
 ];
 
+export enum DefaultCity {
+  name = 'Paris',
+}
+
 export const CITIES: City[] = [
   {
     name: 'Paris',
