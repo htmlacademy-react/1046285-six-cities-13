@@ -1,7 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-
 import { ReviewValidate } from '../../const';
-
 import { ReviewsRating } from './reviews-rating';
 
 type reviewData = {

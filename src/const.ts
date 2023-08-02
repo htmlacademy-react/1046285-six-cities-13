@@ -115,3 +115,7 @@ export const MONTHS: string[] = [
   'November',
   'December'
 ];
+
+
+export const DEFAULT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const CURRENT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
