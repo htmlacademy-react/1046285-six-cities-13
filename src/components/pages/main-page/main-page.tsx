@@ -1,4 +1,4 @@
-import { OfferCardType, CITIES } from '../../../const';
+import { OfferCardType, MapType, CITIES } from '../../../const';
 
 import { OfferList } from '../../offer-list/offer-list';
 import { Map } from '../../map/map';
@@ -58,7 +58,7 @@ const MainPage = ({offers}: MainPageProps) => {
             cardsType={OfferCardType.General}
           />
           <div className="cities__right-section">
-            <Map offers={offers} city={selectedCity} />
+            <Map mapType={MapType.Main} offers={offers} city={selectedCity} />
           </div>
         </div>
       </div>

@@ -10,17 +10,27 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN'
+  Unknown = 'UNKNOWN',
 }
 
 export enum OfferCardType {
   General = 'cities',
-  Favorite = 'favorites',
+  Favorite = 'offer',
+  Nearest = 'near-places',
+}
+
+export enum MapType {
+  Main = 'cities',
+  Offer = 'offer',
 }
 
 export enum ReviewValidate {
   MinCommentLength = 50,
   MinRating = 0,
+}
+
+export enum ReviewsLimit {
+  maxNumber = 10,
 }
 
 type ReviewRating = {
@@ -33,7 +43,7 @@ export const REVIEW_RATING_LEVELS: ReviewRating[] = [
   {value: 4, title: 'good'},
   {value: 3, title: 'not bad'},
   {value: 2, title: 'badly'},
-  {value: 1, title: 'terribly'}
+  {value: 1, title: 'terribly'},
 ];
 
 export const CITIES: City[] = [
@@ -85,4 +95,19 @@ export const CITIES: City[] = [
       zoom: 10,
     }
   },
+];
+
+export const MONTHS: string[] = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
