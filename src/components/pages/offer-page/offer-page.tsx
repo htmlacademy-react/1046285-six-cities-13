@@ -119,7 +119,7 @@ const OfferPage = ({ offers, offersDetails, reviews }: OfferPageProps) => {
         </div>
         {
           offerDetails && (
-            <Map mapType={MapType.Offer} offers={nearestOffers} city={offerDetails?.city}/>
+            <Map mapType={MapType.Offer} />
           )
         }
       </section>

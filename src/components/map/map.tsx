@@ -7,7 +7,7 @@ import { useAppSelector } from '../hooks';
 
 type MapProps = {
   mapType: string;
-  hoveredOfferId: string;
+  hoveredOfferId?: string;
 };
 
 const defaultCustomIcon = new Icon({

@@ -5,7 +5,7 @@ import { Offer } from '../../types/offer';
 type OfferListProps = {
   offers: Offer[];
   cardsType: string;
-  onHoverOffer: (offerId: string) => void;
+  onHoverOffer?: (offerId: string) => void;
 };
 
 const OfferList = ({ offers, cardsType, onHoverOffer }: OfferListProps) => (
