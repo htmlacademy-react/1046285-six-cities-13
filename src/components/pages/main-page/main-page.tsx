@@ -32,18 +32,21 @@ const MainPage = () => {
       <CityNavigation />
       {
         offers.length ?
-          <div className="cities">
-            <div className="cities__places-container container">
-              <OfferList
-                offers={offers}
-                cardsType={OfferCardType.General}
-                onHoverOffer={handleOfferHover}
-              />
-              <div className="cities__right-section">
-                <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+          <>
+            <h2 className="visually-hidden">Places</h2>
+            <div className="cities">
+              <div className="cities__places-container container">
+                <OfferList
+                  offers={offers}
+                  cardsType={OfferCardType.General}
+                  onHoverOffer={handleOfferHover}
+                />
+                <div className="cities__right-section">
+                  <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+                </div>
               </div>
             </div>
-          </div>
+          </>
           :
           <MainEmptyPage />
       }
