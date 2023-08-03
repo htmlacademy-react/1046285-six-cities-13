@@ -1,21 +1,9 @@
-import { SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { CITIES } from '../../const';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { changeCity, getOffers } from '../../store/action';
+import { useAppSelector } from '../hooks';
 
 const CityNavigation = () => {
   const selectedCity = useAppSelector((state) => state.city);
-
-  const dispatch = useAppDispatch();
-
-  const handleClick = (event: SyntheticEvent<HTMLElement>) => {
-    const city = event.currentTarget.dataset.city;
-
-    if (city) {
-      dispatch(changeCity(city));
-      dispatch(getOffers(city));
-    }
-  };
 
   return (
     <div className="tabs">
@@ -27,7 +15,13 @@ const CityNavigation = () => {
                 className="locations__item"
                 key={city.name}
               >
-                <a
+                <Link
+                  className={`locations__item-link tabs__item ${city.name === selectedCity.name ? 'tabs__item--active' : ''}`}
+                  to={`/${city.name}`}
+                >
+                  <span>{city.name}</span>
+                </Link>
+                {/* <a
                   className={`locations__item-link tabs__item ${city.name === selectedCity.name ? 'tabs__item--active' : ''}`}
                   data-city={city.name}
                   href="#"
@@ -38,7 +32,7 @@ const CityNavigation = () => {
                   >
                     {city.name}
                   </span>
-                </a>
+                </a> */}
               </li>
             ))
           }

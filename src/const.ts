@@ -2,6 +2,7 @@ import { City } from './types/offer';
 
 export enum AppRoute {
   Root = '/',
+  Main = '/:city',
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer',

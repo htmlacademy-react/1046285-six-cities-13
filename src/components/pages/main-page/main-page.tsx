@@ -1,14 +1,29 @@
-import { useState } from 'react';
-import { OfferCardType, MapType } from '../../../const';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { OfferCardType, MapType, DefaultCity } from '../../../const';
 import { CityNavigation } from '../../city-navigation/city-navigation';
 import { OfferList } from '../../offer-list/offer-list';
 import { MainEmptyPage } from '../main-empty-page/main-empty-page';
 import { Map } from '../../map/map';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, getOffers } from '../../../store/action';
 
 const MainPage = () => {
+  const { city } = useParams();
   const [hoveredOfferId, setHoveredOfferId] = useState('');
   const offers = useAppSelector((state) => state.offers);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    navigate(`/${DefaultCity.name}`);
+  }, []);
+
+  useEffect(() => {
+    dispatch(changeCity(city as string));
+    dispatch(getOffers(city as string));
+  }, [city]);
+
 
   const handleOfferHover = (id: string) => {
     setHoveredOfferId(id);
