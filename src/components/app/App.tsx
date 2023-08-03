@@ -27,10 +27,9 @@ const App = ({ offers, offersDetails, reviews }: AppProps) => (
       <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationStatus.Auth} />}>
         <Route
           index
+          path={AppRoute.Main}
           element={
-            <MainPage
-              offers={offers}
-            />
+            <MainPage/>
           }
         />
         <Route

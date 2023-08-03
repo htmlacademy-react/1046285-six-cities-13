@@ -1,67 +1,57 @@
-import { OfferCardType, MapType, CITIES } from '../../../const';
-
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { OfferCardType, MapType, DefaultCity } from '../../../const';
+import { CityNavigation } from '../../city-navigation/city-navigation';
 import { OfferList } from '../../offer-list/offer-list';
+import { MainEmptyPage } from '../main-empty-page/main-empty-page';
 import { Map } from '../../map/map';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, getOffers } from '../../../store/action';
 
-import { Offer } from '../../../types/offer';
+const MainPage = () => {
+  const { city } = useParams();
+  const [hoveredOfferId, setHoveredOfferId] = useState('');
+  const offers = useAppSelector((state) => state.offers);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-type MainPageProps = {
-  offers: Offer[];
-};
+  useEffect(() => {
+    navigate(`/${DefaultCity.name}`);
+  }, []);
 
-const MainPage = ({offers}: MainPageProps) => {
-  const selectedCity = CITIES[3];
+  useEffect(() => {
+    dispatch(changeCity(city as string));
+    dispatch(getOffers(city as string));
+  }, [city]);
+
+
+  const handleOfferHover = (id: string) => {
+    setHoveredOfferId(id);
+  };
 
   return (
-    <main className="page__main page__main--index">
+    <main
+      className={`page__main page__main--index ${!offers.length ? 'page__main--index-empty' : ''}`}
+    >
       <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <OfferList
-            offers={offers}
-            cardsType={OfferCardType.General}
-          />
-          <div className="cities__right-section">
-            <Map mapType={MapType.Main} offers={offers} city={selectedCity} />
+      <CityNavigation />
+      {
+        offers.length ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <OfferList
+                offers={offers}
+                cardsType={OfferCardType.General}
+                onHoverOffer={handleOfferHover}
+              />
+              <div className="cities__right-section">
+                <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+          :
+          <MainEmptyPage />
+      }
     </main>
   );
 };

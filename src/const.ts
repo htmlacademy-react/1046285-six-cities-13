@@ -2,6 +2,7 @@ import { City } from './types/offer';
 
 export enum AppRoute {
   Root = '/',
+  Main = '/:city',
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer',
@@ -45,6 +46,10 @@ export const REVIEW_RATING_LEVELS: ReviewRating[] = [
   {value: 2, title: 'badly'},
   {value: 1, title: 'terribly'},
 ];
+
+export enum DefaultCity {
+  name = 'Paris',
+}
 
 export const CITIES: City[] = [
   {
@@ -111,3 +116,7 @@ export const MONTHS: string[] = [
   'November',
   'December'
 ];
+
+
+export const DEFAULT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const CURRENT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
