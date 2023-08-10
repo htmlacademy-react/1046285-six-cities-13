@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { OfferCardType, MapType, DefaultCity } from '../../../const';
+import { useParams } from 'react-router-dom';
+import { OfferCardType, MapType } from '../../../const';
 import { CityNavigation } from '../../city-navigation/city-navigation';
 import { OfferList } from '../../offer-list/offer-list';
 import { MainEmptyPage } from '../main-empty-page/main-empty-page';
@@ -12,17 +12,12 @@ const MainPage = () => {
   const { city } = useParams();
   const [hoveredOfferId, setHoveredOfferId] = useState('');
   const offers = useAppSelector((state) => state.offers);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    navigate(`/${DefaultCity.name}`);
-  }, []);
 
   useEffect(() => {
     dispatch(changeCity(city as string));
     dispatch(getOffers(city as string));
-  }, [city]);
+  }, [city, dispatch]);
 
 
   const handleOfferHover = (id: string) => {
@@ -37,18 +32,21 @@ const MainPage = () => {
       <CityNavigation />
       {
         offers.length ?
-          <div className="cities">
-            <div className="cities__places-container container">
-              <OfferList
-                offers={offers}
-                cardsType={OfferCardType.General}
-                onHoverOffer={handleOfferHover}
-              />
-              <div className="cities__right-section">
-                <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+          <>
+            <h2 className="visually-hidden">Places</h2>
+            <div className="cities">
+              <div className="cities__places-container container">
+                <OfferList
+                  offers={offers}
+                  cardsType={OfferCardType.General}
+                  onHoverOffer={handleOfferHover}
+                />
+                <div className="cities__right-section">
+                  <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+                </div>
               </div>
             </div>
-          </div>
+          </>
           :
           <MainEmptyPage />
       }

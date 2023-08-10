@@ -21,18 +21,6 @@ const CityNavigation = () => {
                 >
                   <span>{city.name}</span>
                 </Link>
-                {/* <a
-                  className={`locations__item-link tabs__item ${city.name === selectedCity.name ? 'tabs__item--active' : ''}`}
-                  data-city={city.name}
-                  href="#"
-                  onClick={handleClick}
-                >
-                  <span
-                    data-city={city.name}
-                  >
-                    {city.name}
-                  </span>
-                </a> */}
               </li>
             ))
           }
