@@ -6,17 +6,18 @@ import { OfferList } from '../../offer-list/offer-list';
 import { MainEmptyPage } from '../main-empty-page/main-empty-page';
 import { Map } from '../../map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity, getOffers } from '../../../store/action';
+import { changeCity, loadOffers } from '../../../store/action';
 
 const MainPage = () => {
   const { city } = useParams();
   const [hoveredOfferId, setHoveredOfferId] = useState('');
   const offers = useAppSelector((state) => state.offers);
+  const filterredOffers = offers.filter((offer) => offer.city.name === city);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(changeCity(city as string));
-    dispatch(getOffers(city as string));
+    dispatch(loadOffers);
   }, [city, dispatch]);
 
 
@@ -26,18 +27,18 @@ const MainPage = () => {
 
   return (
     <main
-      className={`page__main page__main--index ${!offers.length ? 'page__main--index-empty' : ''}`}
+      className={`page__main page__main--index ${!filterredOffers.length ? 'page__main--index-empty' : ''}`}
     >
       <h1 className="visually-hidden">Cities</h1>
       <CityNavigation />
       {
-        offers.length ?
+        filterredOffers.length ?
           <>
             <h2 className="visually-hidden">Places</h2>
             <div className="cities">
               <div className="cities__places-container container">
                 <OfferList
-                  offers={offers}
+                  offers={filterredOffers}
                   cardsType={OfferCardType.General}
                   onHoverOffer={handleOfferHover}
                 />

@@ -1,22 +1,20 @@
 import { FavoriteList } from '../../favorite-list/favorite-list';
-
 import { OfferCardType } from '../../../const';
+import { useAppSelector } from '../../hooks';
 
-import { Offer } from '../../../types/offer';
+const FavoritesPage = () => {
+  const offers = useAppSelector((state) => state.offers);
 
-type FavoritesPageProps = {
-  offers: Offer[];
+  return (
+    <main className="page__main page__main--favorites">
+      <div className="page__favorites-container container">
+        <FavoriteList
+          offers={offers}
+          cardsType={OfferCardType.Favorite}
+        />
+      </div>
+    </main>
+  );
 };
-
-const FavoritesPage = ({offers}: FavoritesPageProps) => (
-  <main className="page__main page__main--favorites">
-    <div className="page__favorites-container container">
-      <FavoriteList
-        offers={offers}
-        cardsType={OfferCardType.Favorite}
-      />
-    </div>
-  </main>
-);
 
 export { FavoritesPage };

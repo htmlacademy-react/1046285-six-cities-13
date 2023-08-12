@@ -128,3 +128,10 @@ export const WAYS_SORTING_OFFERS: SortType[] = [
 
 export const DEFAULT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export const CURRENT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+
+export enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  User = '/user',
+}
