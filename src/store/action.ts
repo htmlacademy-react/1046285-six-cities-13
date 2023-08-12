@@ -25,3 +25,7 @@ export const requireAuthorization = createAction('user/requireAuthorization', (v
   payload: value,
 }));
 
+export const redirectToRoute = createAction('app/redirectToRoute', (value: string) => ({
+  payload: value,
+}));
+
