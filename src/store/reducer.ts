@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, loadOffers } from './action';
+import { changeCity, loadOffers, setOffersDataLoadingStatus } from './action';
 import { CITIES, DefaultCity } from '../const';
 
 import { City, Offer } from '../types/offer';
@@ -7,6 +7,7 @@ import { City, Offer } from '../types/offer';
 const initialState = {
   city: CITIES.find((city) => city.name === DefaultCity.name) as City,
   offers: [] as Offer[],
+  isOffersDataLoading: true,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -16,5 +17,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     });
 });

@@ -12,3 +12,7 @@ export const loadOffers = createAction('data/loadOffers', (value: Offer[]) => ({
 export const sortOffers = createAction('offers/sort', (value: NumberConstructor) => ({
   payload: value,
 }));
+
+export const setOffersDataLoadingStatus = createAction('data/setOffersDataLoadingStatus', (value: boolean) => ({
+  payload: value,
+}));
