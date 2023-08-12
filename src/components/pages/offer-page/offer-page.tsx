@@ -3,18 +3,18 @@ import { MapType } from '../../../const';
 import { OfferCardType } from '../../../const';
 import { ReviewsList } from '../../reviews-list/reviews-list';
 import { Map } from '../../map/map';
+import { useAppSelector } from '../../hooks';
 import { OfferList } from '../../offer-list/offer-list';
-import { Offer } from '../../../types/offer';
 import { OfferDetails } from '../../../types/offer';
 import { Review } from '../../../types/review';
 
 type OfferPageProps = {
-  offers: Offer[];
   offersDetails: OfferDetails[];
   reviews: Review[];
 };
 
-const OfferPage = ({ offers, offersDetails, reviews }: OfferPageProps) => {
+const OfferPage = ({ offersDetails, reviews }: OfferPageProps) => {
+  const offers = useAppSelector((state) => state.offers);
   const { id } = useParams();
   const offerDetails = offersDetails.find((offer) => offer.id === id);
   const nearestOffers = offers.slice(0, 3);
