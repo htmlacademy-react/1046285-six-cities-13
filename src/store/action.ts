@@ -16,3 +16,7 @@ export const sortOffers = createAction('offers/sort', (value: NumberConstructor)
 export const setOffersDataLoadingStatus = createAction('data/setOffersDataLoadingStatus', (value: boolean) => ({
   payload: value,
 }));
+
+export const requireAuthorization = createAction('user/requireAuthorization', (value: string) => ({
+  payload: value,
+}));
