@@ -9,6 +9,10 @@ export const loadOffers = createAction('data/loadOffers', (value: Offer[]) => ({
   payload: value,
 }));
 
+export const setError = createAction('data/setError', (value: string | null) => ({
+  payload: value,
+}));
+
 export const sortOffers = createAction('offers/sort', (value: NumberConstructor) => ({
   payload: value,
 }));
@@ -20,3 +24,4 @@ export const setOffersDataLoadingStatus = createAction('data/setOffersDataLoadin
 export const requireAuthorization = createAction('user/requireAuthorization', (value: string) => ({
   payload: value,
 }));
+
