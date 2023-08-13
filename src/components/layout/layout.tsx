@@ -1,22 +1,35 @@
-import { useEffect } from 'react';
+import { useEffect, SyntheticEvent } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, DefaultCity } from '../../const';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 type LayoutProps = {
   authorizationStatus: string;
 }
 
 const Layout = ({ authorizationStatus }: LayoutProps) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const city = useAppSelector((state) => state.city);
+  const currentLocation = location.pathname;
+
+  const handleSignOut = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+
+    dispatch(logoutAction());
+  };
 
   useEffect(() => {
-    navigate(`/${DefaultCity.name}`);
+    navigate(`${DefaultCity.name}`);
   }, []);
 
   return (
-    <div className="page page--gray page--main">
+    <div
+      className={
+        `page ${!currentLocation.includes('offer' || 'favorites') ? 'page--gray' : ''} page--${currentLocation.includes('login') ? 'login' : 'main'}`
+      }
+    >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -34,40 +47,46 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                 />
               </Link>
             </div>
-            <nav className="header__nav">
-
-              {
-                authorizationStatus === AuthorizationStatus.Auth ?
-                  (
-                    <ul className="header__nav-list">
-                      <li className="header__nav-item user">
-                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                          <span className="header__user-name user__name">
-                            Oliver.conner@gmail.com
-                          </span>
-                          <span className="header__favorite-count">3</span>
-                        </Link>
-                      </li>
-                      <li className="header__nav-item">
-                        <a className="header__nav-link" href="#">
-                          <span className="header__signout">Sign out</span>
-                        </a>
-                      </li>
-                    </ul>
-                  ) :
-                  (
-                    <ul className="header__nav-list">
-                      <li className="header__nav-item user">
-                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                          <span className="header__login">Sign in</span>
-                        </Link>
-                      </li>
-                    </ul>
-                  )
-              }
-            </nav>
+            {
+              currentLocation !== AppRoute.Login &&
+              <nav className="header__nav">
+                {
+                  authorizationStatus === AuthorizationStatus.Auth ?
+                    (
+                      <ul className="header__nav-list">
+                        <li className="header__nav-item user">
+                          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+                            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                            <span className="header__user-name user__name">
+                              Oliver.conner@gmail.com
+                            </span>
+                            <span className="header__favorite-count">3</span>
+                          </Link>
+                        </li>
+                        <li className="header__nav-item">
+                          <a
+                            onClick={handleSignOut}
+                            className="header__nav-link"
+                            href=""
+                          >
+                            <span className="header__signout">Sign out</span>
+                          </a>
+                        </li>
+                      </ul>
+                    ) :
+                    (
+                      <ul className="header__nav-list">
+                        <li className="header__nav-item user">
+                          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                            <span className="header__login">Sign in</span>
+                          </Link>
+                        </li>
+                      </ul>
+                    )
+                }
+              </nav>
+            }
           </div>
         </div>
       </header>

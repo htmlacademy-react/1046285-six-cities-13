@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Layout } from '../layout/layout';
 import { MainPage } from '../pages/main-page/main-page';
@@ -11,6 +11,8 @@ import { PrivateRoute } from '../private-route/private-route';
 import { OfferDetails } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppSelector } from '../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppProps = {
   offersDetails: OfferDetails[];
@@ -18,32 +20,33 @@ type AppProps = {
 };
 
 const App = ({ offersDetails, reviews }: AppProps) => {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  if (isOffersDataLoading) {
+  if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
       <LoadingPage />
     );
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationStatus.Auth} />}>
+        <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
           <Route
             index
             path={AppRoute.Main}
             element={
-              <MainPage/>
+              <MainPage />
             }
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
-                <FavoritesPage/>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
@@ -66,7 +69,7 @@ const App = ({ offersDetails, reviews }: AppProps) => {
           element={<ErrorPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 
