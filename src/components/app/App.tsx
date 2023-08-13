@@ -8,20 +8,14 @@ import { OfferPage } from '../pages/offer-page/offer-page';
 import { ErrorPage } from '../pages/error-page/error-page';
 import { LoadingPage } from '../pages/loading-page/loading-page';
 import { PrivateRoute } from '../private-route/private-route';
-import { OfferDetails } from '../../types/offer';
-import { Review } from '../../types/review';
 import { useAppSelector } from '../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  offersDetails: OfferDetails[];
-  reviews: Review[];
-};
-
-const App = ({ offersDetails, reviews }: AppProps) => {
+const App = () => {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isOfferDetailsDataLoading = useAppSelector((state) => state.isOfferDetailsDataLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
@@ -57,10 +51,7 @@ const App = ({ offersDetails, reviews }: AppProps) => {
           <Route
             path={`${AppRoute.Offer}/:id`}
             element={
-              <OfferPage
-                offersDetails={offersDetails}
-                reviews={reviews}
-              />
+              isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage/>
             }
           />
         </Route>

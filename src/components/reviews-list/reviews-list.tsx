@@ -1,16 +1,17 @@
 import { ReviewsLimit } from '../../const';
-
+import { useAppSelector } from '../hooks';
 import { ReviewsItem } from '../reviews-item/reviews-item';
 import { ReviewsForm } from '../reviews-form/reviews-form';
-
 import { Review } from '../../types/review';
+import { AuthorizationStatus } from '../../const';
 
 type ReviewsListProps = {
   reviews: Review[];
 };
 
 const ReviewsList = ({reviews}: ReviewsListProps) => {
-  const sortedReviews = reviews.sort((previous, current) => {
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const sortedReviews = [...reviews].sort((previous, current) => {
     const prevDate = new Date(previous.date).getTime();
     const curDate = new Date(current.date).getTime();
 
@@ -24,13 +25,14 @@ const ReviewsList = ({reviews}: ReviewsListProps) => {
       </h2>
       <ul className="reviews__list">
         {
-          // reviews.map((review) => (
           sortedReviews.slice(0, ReviewsLimit.maxNumber).map((review) => (
             <ReviewsItem key={review.id} review={review} />
           ))
         }
       </ul>
-      <ReviewsForm />
+      {
+        authStatus === AuthorizationStatus.Auth && <ReviewsForm />
+      }
     </section>
   );
 };

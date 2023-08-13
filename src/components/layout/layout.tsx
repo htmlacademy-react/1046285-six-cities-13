@@ -27,7 +27,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   return (
     <div
       className={
-        `page ${!currentLocation.includes('offer' || 'favorites') ? 'page--gray' : ''} page--${currentLocation.includes('login') ? 'login' : 'main'}`
+        `page ${!currentLocation.includes('offer' || 'favorites') ? 'page--gray' : ''} ${currentLocation.includes('offer') ? '' : (currentLocation.includes('login') ? 'page--login' : 'page--main')}`
       }
     >
       <header className="header">

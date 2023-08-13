@@ -1,23 +1,14 @@
-import { useParams } from 'react-router-dom';
 import { MapType } from '../../../const';
 import { OfferCardType } from '../../../const';
 import { ReviewsList } from '../../reviews-list/reviews-list';
 import { Map } from '../../map/map';
 import { useAppSelector } from '../../hooks';
 import { OfferList } from '../../offer-list/offer-list';
-import { OfferDetails } from '../../../types/offer';
-import { Review } from '../../../types/review';
 
-type OfferPageProps = {
-  offersDetails: OfferDetails[];
-  reviews: Review[];
-};
-
-const OfferPage = ({ offersDetails, reviews }: OfferPageProps) => {
-  const offers = useAppSelector((state) => state.offers);
-  const { id } = useParams();
-  const offerDetails = offersDetails.find((offer) => offer.id === id);
-  const nearestOffers = offers.slice(0, 3);
+const OfferPage = () => {
+  const offerDetails = useAppSelector((state) => state.offerDetails);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearestOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   return (
     <main className="page__main page__main--offer">
@@ -114,7 +105,7 @@ const OfferPage = ({ offersDetails, reviews }: OfferPageProps) => {
                 </p>
               </div>
             </div>
-            <ReviewsList reviews={reviews} />
+            {reviews.length && <ReviewsList reviews={reviews} />}
           </div>
         </div>
         {
@@ -124,15 +115,10 @@ const OfferPage = ({ offersDetails, reviews }: OfferPageProps) => {
         }
       </section>
       <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <OfferList
-              offers={nearestOffers}
-              cardsType={OfferCardType.Nearest}
-            />
-          </div>
-        </section>
+        <OfferList
+          offers={nearestOffers}
+          cardsType={OfferCardType.Nearest}
+        />
       </div>
     </main>
   );
