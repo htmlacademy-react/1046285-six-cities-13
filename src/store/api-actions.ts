@@ -12,12 +12,14 @@ import {
   setError,
   redirectToRoute,
   loadNearbyOffers,
+  postReview,
 } from './action';
 import { AppDispatch, State } from '../types/state';
 import { Offer, OfferDetails } from '../types/offer';
 import { Review } from '../types/review';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
+import { reviewData } from '../components/reviews-form/reviews-form';
 import {store} from './';
 
 export const clearErrorAction = createAsyncThunk(
@@ -80,6 +82,21 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${id}`);
     dispatch(loadReviews(data));
+  },
+);
+
+export const postReviewAction = createAsyncThunk<void, reviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postReview',
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    const { data } = await api.post<Review>(`${APIRoute.Comments}/${id}`, {
+      rating,
+      comment
+    });
+    dispatch(postReview(data));
   },
 );
 

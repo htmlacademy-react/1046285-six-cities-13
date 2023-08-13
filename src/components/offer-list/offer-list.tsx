@@ -32,9 +32,9 @@ const OfferList = ({ offers, cardsType, onHoverOffer }: OfferListProps) => {
             <SortingOffers onSortTypeClick={handleSortTypeClick} />
           </>
         ) :
-        (
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-        )
+          (
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          )
       }
       <div
         className={`${cardsType === OfferCardType.Nearest ? 'near-places__list' : 'cities__places-list tabs__content'} places__list`}

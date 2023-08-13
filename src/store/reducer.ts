@@ -8,7 +8,8 @@ import {
   setOfferDetailsDataLoadingStatus,
   requireAuthorization,
   setError,
-  loadReviews
+  loadReviews,
+  postReview
 } from './action';
 import { CITIES, DefaultCity, AuthorizationStatus } from '../const';
 import { City, Offer, OfferDetails } from '../types/offer';
@@ -42,6 +43,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(postReview, (state, action) => {
+      state.reviews.push(action.payload);
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
