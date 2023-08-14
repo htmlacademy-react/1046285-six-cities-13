@@ -4,9 +4,11 @@ import { APIRoute, AuthorizationStatus, AppRoute, TIMEOUT_SHOW_ERROR } from '../
 import { saveToken, dropToken } from '../services/token';
 import {
   loadOffers,
+  loadFavoriteOffers,
   loadOfferDetails,
   loadReviews,
   setOffersDataLoadingStatus,
+  setFavoriteOffersDataLoadingStatus,
   setOfferDetailsDataLoadingStatus,
   requireAuthorization,
   setError,
@@ -43,6 +45,21 @@ export const fetchOfferAction = createAsyncThunk<void, undefined, {
     const { data } = await api.get<Offer[]>(APIRoute.Offers);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
+  },
+);
+
+export const fetchFavoriteOfferAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setFavoriteOffersDataLoadingStatus(true));
+    const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+    dispatch(setFavoriteOffersDataLoadingStatus(false));
+    dispatch(loadFavoriteOffers(data));
+    dispatch(redirectToRoute(AppRoute.Favorites));
   },
 );
 

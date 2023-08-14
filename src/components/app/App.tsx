@@ -15,6 +15,7 @@ import browserHistory from '../../browser-history';
 const App = () => {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isFavoriteOffersDataLoading = useAppSelector((state) => state.isFavoriteOffersDataLoading);
   const isOfferDetailsDataLoading = useAppSelector((state) => state.isOfferDetailsDataLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
@@ -40,7 +41,7 @@ const App = () => {
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <FavoritesPage />
+                {isFavoriteOffersDataLoading ? <LoadingPage /> : <FavoritesPage />}
               </PrivateRoute>
             }
           />

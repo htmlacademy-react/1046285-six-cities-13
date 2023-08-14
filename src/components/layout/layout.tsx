@@ -2,7 +2,7 @@ import { useEffect, SyntheticEvent } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, DefaultCity } from '../../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { logoutAction, fetchFavoriteOfferAction } from '../../store/api-actions';
 
 type LayoutProps = {
   authorizationStatus: string;
@@ -16,9 +16,13 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
 
   const handleSignOut = (evt: SyntheticEvent) => {
     evt.preventDefault();
-
     dispatch(logoutAction());
   };
+
+  const handleToFavorite = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+    dispatch(fetchFavoriteOfferAction());
+  }
 
   useEffect(() => {
     navigate(`${DefaultCity.name}`);
@@ -55,13 +59,17 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                     (
                       <ul className="header__nav-list">
                         <li className="header__nav-item user">
-                          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+                          <a
+                            onClick={handleToFavorite}
+                            className="header__nav-link header__nav-link--profile"
+                            href=""
+                          >
                             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                             <span className="header__user-name user__name">
                               Oliver.conner@gmail.com
                             </span>
                             <span className="header__favorite-count">3</span>
-                          </Link>
+                          </a>
                         </li>
                         <li className="header__nav-item">
                           <a
