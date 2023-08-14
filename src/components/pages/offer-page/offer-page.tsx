@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { MapType } from '../../../const';
 import { OfferCardType } from '../../../const';
 import { ReviewsList } from '../../reviews-list/reviews-list';
@@ -9,6 +10,11 @@ const OfferPage = () => {
   const offerDetails = useAppSelector((state) => state.offerDetails);
   const reviews = useAppSelector((state) => state.reviews);
   const nearestOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+  const [hoveredOfferId, setHoveredOfferId] = useState('');
+
+  const handleOfferHover = (id: string) => {
+    setHoveredOfferId(id);
+  };
 
   return (
     <main className="page__main page__main--offer">
@@ -110,12 +116,13 @@ const OfferPage = () => {
         </div>
         {
           offerDetails && (
-            <Map mapType={MapType.Offer} />
+            <Map offers={nearestOffers} mapType={MapType.Offer} hoveredOfferId={hoveredOfferId} />
           )
         }
       </section>
       <div className="container">
         <OfferList
+          onHoverOffer={handleOfferHover}
           offers={nearestOffers}
           cardsType={OfferCardType.Nearest}
         />

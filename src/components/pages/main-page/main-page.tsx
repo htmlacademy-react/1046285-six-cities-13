@@ -43,7 +43,7 @@ const MainPage = () => {
                   onHoverOffer={handleOfferHover}
                 />
                 <div className="cities__right-section">
-                  <Map mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+                  <Map offers={offers} mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
                 </div>
               </div>
             </div>
