@@ -1,21 +1,29 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useParams } from 'react-router-dom';
 import { ReviewValidate } from '../../const';
+import { postReviewAction } from '../../store/api-actions';
 import { ReviewsRating } from './reviews-rating';
+import { store } from '../../store';
 
-type reviewData = {
+export type reviewData = {
+  id: string;
   rating: number;
   comment: string;
 }
 
+const initialState: reviewData = {
+  id: '',
+  rating: 0,
+  comment: '',
+};
+
 const ReviewsForm = () => {
-  const [reviewData, setReviewData] = useState<reviewData>({
-    rating: 0,
-    comment: '',
-  });
+  const { id } = useParams();
+  const [reviewData, setReviewData] = useState<reviewData>(initialState);
+  const [wasSubmitted, setWasSubmitted] = useState<boolean>(false);
 
   const handleComment = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     const comment = target.value;
-
     setReviewData((lastReviewData) => ({...lastReviewData, comment}));
   };
 
@@ -25,6 +33,12 @@ const ReviewsForm = () => {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    if (id && reviewData.rating) {
+      store.dispatch(postReviewAction({...reviewData, id: id}));
+      setReviewData(initialState);
+      setWasSubmitted((prevWasSubmitted) => !prevWasSubmitted);
+    }
   };
 
   const isSubmitDisabled = Boolean(
@@ -34,6 +48,7 @@ const ReviewsForm = () => {
 
   return (
     <form
+      key={Number(wasSubmitted)}
       className="reviews__form form"
       action="#"
       method="post"
@@ -42,7 +57,11 @@ const ReviewsForm = () => {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <ReviewsRating onChangeRating={handleRating} currentRating={reviewData.rating} />
+      <ReviewsRating
+        key={Number(wasSubmitted)}
+        onChangeRating={handleRating}
+        currentRating={reviewData.rating}
+      />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

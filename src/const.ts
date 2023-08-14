@@ -133,6 +133,7 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum APIRoute {
   Offers = '/offers',
+  Nearby = '/nearby',
   Favorite = '/favorite',
   Comments = '/comments',
   User = '/user',
