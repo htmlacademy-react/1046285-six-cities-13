@@ -12,7 +12,8 @@ import {
   requireAuthorization,
   setError,
   loadReviews,
-  postReview
+  postReview,
+  requireUserEmail,
 } from './action';
 import { CITIES, DefaultCity, AuthorizationStatus } from '../const';
 import { City, Offer, OfferDetails } from '../types/offer';
@@ -29,6 +30,7 @@ const initialState = {
   isFavoriteOffersDataLoading: true,
   isOfferDetailsDataLoading: true,
   authorizationStatus: AuthorizationStatus.Unknown as string,
+  userEmail: '',
   error: null as string | null,
 };
 
@@ -44,7 +46,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.favoriteOffers = action.payload;
     })
     .addCase(changeStatusFavoriteOffer, (state, action) => {
-      // const id = action.payload.id;
       state.offers.map((offer) => {
         if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
@@ -74,6 +75,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(requireUserEmail, (state, action) => {
+      state.userEmail = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

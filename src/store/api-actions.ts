@@ -16,6 +16,7 @@ import {
   redirectToRoute,
   loadNearbyOffers,
   postReview,
+  requireUserEmail,
 } from './action';
 import { AppDispatch, State } from '../types/state';
 import { Offer, OfferDetails, OfferFavoriteStatus } from '../types/offer';
@@ -60,7 +61,6 @@ export const fetchFavoriteOfferAction = createAsyncThunk<void, undefined, {
     const { data } = await api.get<Offer[]>(APIRoute.Favorite);
     dispatch(setFavoriteOffersDataLoadingStatus(false));
     dispatch(loadFavoriteOffers(data));
-    dispatch(redirectToRoute(AppRoute.Favorites));
   },
 );
 
@@ -138,8 +138,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoute.Login);
+      const { data: {email} } = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(requireUserEmail(email));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }

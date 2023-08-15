@@ -16,5 +16,6 @@ export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersD
 export const setFavoriteOffersDataLoadingStatus = createAction<boolean>('data/setFavoriteOffersDataLoadingStatus');
 export const setOfferDetailsDataLoadingStatus = createAction<boolean>('data/setOfferDetailsDataLoadingStatus');
 export const requireAuthorization = createAction<string>('user/requireAuthorization');
+export const requireUserEmail = createAction<string>('user/requireUserInformation');
 export const redirectToRoute = createAction<string>('app/redirectToRoute');
 

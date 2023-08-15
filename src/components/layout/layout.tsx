@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, DefaultCity } from '../../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction, fetchFavoriteOfferAction } from '../../store/api-actions';
+import { redirectToRoute } from '../../store/action';
 
 type LayoutProps = {
   authorizationStatus: string;
@@ -12,11 +13,19 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const city = useAppSelector((state) => state.city);
+  const userEmail = useAppSelector((state) => state.userEmail);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const currentLocation = location.pathname;
   const locations = {
     login: currentLocation.includes('login'),
     offer: currentLocation.includes('offer'),
     favorites: currentLocation.includes('favorites'),
+  };
+
+  const requireFavoriteOffers = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOfferAction());
+    }
   };
 
   const handleSignOut = (evt: SyntheticEvent) => {
@@ -26,10 +35,12 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
 
   const handleToFavorite = (evt: SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(fetchFavoriteOfferAction());
+    dispatch(redirectToRoute(AppRoute.Favorites));
+    requireFavoriteOffers();
   };
 
   useEffect(() => {
+    requireFavoriteOffers();
     navigate(`${DefaultCity.name}`);
   }, []);
 
@@ -71,9 +82,13 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                           >
                             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                             <span className="header__user-name user__name">
-                              Oliver.conner@gmail.com
+                              {userEmail}
                             </span>
-                            <span className="header__favorite-count">3</span>
+                            {
+                              favoriteOffers.length > 0 && (
+                                <span className="header__favorite-count">{favoriteOffers.length}</span>
+                              )
+                            }
                           </a>
                         </li>
                         <li className="header__nav-item">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { AuthorizationStatus } from '../../const';
+import { fetchFavoriteOfferAction } from '../../store/api-actions';
 
 type FavoriteToggleProps = {
   isFavorite: boolean;
@@ -9,6 +10,7 @@ type FavoriteToggleProps = {
 };
 
 const FavoriteToggle = ({ isFavorite, parentType, onChangeFavoriteStatus }: FavoriteToggleProps) => {
+  const dispatch = useAppDispatch();
   const [favoriteStatus, setfavoriteStatus] = useState<boolean>(isFavorite);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -17,6 +19,7 @@ const FavoriteToggle = ({ isFavorite, parentType, onChangeFavoriteStatus }: Favo
   const handleChangeFavoriteStatus = () => {
     setfavoriteStatus((prevfavoriteStatus) => !prevfavoriteStatus);
     onChangeFavoriteStatus(Number(!favoriteStatus));
+    dispatch(fetchFavoriteOfferAction());
   };
 
 
