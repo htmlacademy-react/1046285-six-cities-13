@@ -1,6 +1,9 @@
-import { OfferDetails } from "../../../types/offer";
-import { Review } from "../../../types/review";
-import { ReviewsList } from "../../reviews-list/reviews-list";
+import { store } from '../../../store';
+import { changeStatusFavoriteOfferAction } from '../../../store/api-actions';
+import { OfferDetails } from '../../../types/offer';
+import { Review } from '../../../types/review';
+import { ReviewsList } from '../../reviews-list/reviews-list';
+import { FavoriteToggle } from '../../favorite-toggle/favorite-toggle';
 
 type OfferPageDetailsProps = {
   offerDetails: OfferDetails;
@@ -8,6 +11,9 @@ type OfferPageDetailsProps = {
 };
 
 const OfferPageDetails = ({offerDetails, reviews}: OfferPageDetailsProps) => {
+  const handleFavoriteToggle = (status: number) => {
+    store.dispatch(changeStatusFavoriteOfferAction({ id: offerDetails.id, status: status }));
+  };
 
   return (
     <>
@@ -40,15 +46,10 @@ const OfferPageDetails = ({offerDetails, reviews}: OfferPageDetailsProps) => {
             <h1 className="offer__name">
               {offerDetails?.title}
             </h1>
-            <button
-              className={`offer__bookmark-button button ${offerDetails?.isFavorite ? 'offer__bookmark-button--active' : ''}`}
-              type="button"
-            >
-              <svg className="offer__bookmark-icon" width="31" height="33">
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <FavoriteToggle
+              onChangeFavoriteStatus={handleFavoriteToggle}
+              isFavorite={offerDetails.isFavorite}
+            />
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">

@@ -2,7 +2,8 @@ import { SyntheticEvent } from 'react';
 import { OfferCardType } from '../../const';
 import { Offer } from '../../types/offer';
 import { store } from '../../store';
-import { fetchNearbyOffersAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchOfferDetailsAction, fetchReviewsAction, changeStatusFavoriteOfferAction } from '../../store/api-actions';
+import { FavoriteToggle } from '../favorite-toggle/favorite-toggle';
 
 type OfferCardProps = {
   offer: Offer;
@@ -11,12 +12,16 @@ type OfferCardProps = {
 };
 
 const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
-  const handleClick = (evt: SyntheticEvent) => {
+  const handleCardClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
     store.dispatch(fetchOfferDetailsAction(offer.id));
     store.dispatch(fetchNearbyOffersAction(offer.id));
     store.dispatch(fetchReviewsAction(offer.id));
+  };
+
+  const handleFavoriteToggle = (status: number) => {
+    store.dispatch(changeStatusFavoriteOfferAction({ id: offer.id, status: status }));
   };
 
   return (
@@ -36,14 +41,14 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
         className={`${cardType}__image-wrapper place-card__image-wrapper`}
       >
         <a
-          onClick={handleClick}
+          onClick={handleCardClick}
           href="#"
         >
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width={cardType === OfferCardType.General || OfferCardType.Nearest ? 260 : 150}
-            height={cardType === OfferCardType.General || OfferCardType.Nearest ? 200 : 110}
+            width={cardType === OfferCardType.Favorite ? 150 : 260}
+            height={cardType === OfferCardType.Favorite ? 110 : 200}
             alt="Place image"
           />
         </a>
@@ -56,12 +61,13 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
             </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {
+            <FavoriteToggle
+              onChangeFavoriteStatus={handleFavoriteToggle}
+              isFavorite={offer.isFavorite}
+              parentType={cardType}
+            />
+          }
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -71,7 +77,7 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
         </div>
         <h2 className="place-card__name">
           <a
-            onClick={handleClick}
+            onClick={handleCardClick}
             href=""
           >
             {offer.title}

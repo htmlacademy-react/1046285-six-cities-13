@@ -13,6 +13,11 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   const navigate = useNavigate();
   const city = useAppSelector((state) => state.city);
   const currentLocation = location.pathname;
+  const locations = {
+    login: currentLocation.includes('login'),
+    offer: currentLocation.includes('offer'),
+    favorites: currentLocation.includes('favorites'),
+  };
 
   const handleSignOut = (evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -22,7 +27,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   const handleToFavorite = (evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(fetchFavoriteOfferAction());
-  }
+  };
 
   useEffect(() => {
     navigate(`${DefaultCity.name}`);
@@ -31,7 +36,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   return (
     <div
       className={
-        `page ${!currentLocation.includes('offer' || 'favorites') ? 'page--gray' : ''} ${!currentLocation.includes('offer') && currentLocation.includes('login') ? 'page--login' : 'page--main'}`
+        `page ${locations.offer || locations.favorites ? '' : 'page--gray'} ${locations.login ? 'page--login' : ''} ${locations.offer || locations.login || locations.favorites ? '' : 'page--main'}`
       }
     >
       <header className="header">

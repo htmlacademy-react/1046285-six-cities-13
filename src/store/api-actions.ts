@@ -5,6 +5,7 @@ import { saveToken, dropToken } from '../services/token';
 import {
   loadOffers,
   loadFavoriteOffers,
+  changeStatusFavoriteOffer,
   loadOfferDetails,
   loadReviews,
   setOffersDataLoadingStatus,
@@ -17,7 +18,7 @@ import {
   postReview,
 } from './action';
 import { AppDispatch, State } from '../types/state';
-import { Offer, OfferDetails } from '../types/offer';
+import { Offer, OfferDetails, OfferFavoriteStatus } from '../types/offer';
 import { Review } from '../types/review';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -53,13 +54,25 @@ export const fetchFavoriteOfferAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchOffers',
+  'data/fetchFavoriteOffers',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setFavoriteOffersDataLoadingStatus(true));
     const { data } = await api.get<Offer[]>(APIRoute.Favorite);
     dispatch(setFavoriteOffersDataLoadingStatus(false));
     dispatch(loadFavoriteOffers(data));
     dispatch(redirectToRoute(AppRoute.Favorites));
+  },
+);
+
+export const changeStatusFavoriteOfferAction = createAsyncThunk<void, OfferFavoriteStatus, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/changeStatusFavoriteOfferAction',
+  async ({id, status}, {dispatch, extra: api}) => {
+    const { data } = await api.post<OfferDetails>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(changeStatusFavoriteOffer(data.id));
   },
 );
 

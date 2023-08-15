@@ -3,6 +3,7 @@ import {
   changeCity,
   loadOffers,
   loadFavoriteOffers,
+  changeStatusFavoriteOffer,
   loadNearbyOffers,
   loadOfferDetails,
   setOffersDataLoadingStatus,
@@ -41,6 +42,14 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(changeStatusFavoriteOffer, (state, action) => {
+      // const id = action.payload.id;
+      state.offers.map((offer) => {
+        if (offer.id === action.payload) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+      });
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;

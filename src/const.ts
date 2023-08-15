@@ -16,7 +16,8 @@ export enum AuthorizationStatus {
 
 export enum OfferCardType {
   General = 'cities',
-  Favorite = 'offer',
+  Offer = 'offer',
+  Favorite = 'favorites',
   Nearest = 'near-places',
 }
 

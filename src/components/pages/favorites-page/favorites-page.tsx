@@ -16,9 +16,9 @@ const FavoritesPage = () => {
       </div>
     </main>
   ) :
-  (
-    <FavoritesEmptyPage />
-  );
+    (
+      <FavoritesEmptyPage />
+    );
 };
 
 export { FavoritesPage };
