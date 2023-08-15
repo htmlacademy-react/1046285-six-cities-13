@@ -70,10 +70,10 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
             {
               currentLocation !== AppRoute.Login &&
               <nav className="header__nav">
-                {
-                  authorizationStatus === AuthorizationStatus.Auth ?
-                    (
-                      <ul className="header__nav-list">
+                <ul className="header__nav-list">
+                  {
+                    authorizationStatus === AuthorizationStatus.Auth ? (
+                      <>
                         <li className="header__nav-item user">
                           <a
                             onClick={handleToFavorite}
@@ -100,19 +100,17 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                             <span className="header__signout">Sign out</span>
                           </a>
                         </li>
-                      </ul>
-                    ) :
-                    (
-                      <ul className="header__nav-list">
-                        <li className="header__nav-item user">
-                          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                            <span className="header__login">Sign in</span>
-                          </Link>
-                        </li>
-                      </ul>
+                      </>
+                    ) : (
+                      <li className="header__nav-item user">
+                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                          <span className="header__login">Sign in</span>
+                        </Link>
+                      </li>
                     )
-                }
+                  }
+                </ul>
               </nav>
             }
           </div>

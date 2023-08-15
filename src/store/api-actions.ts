@@ -76,21 +76,6 @@ export const changeStatusFavoriteOfferAction = createAsyncThunk<void, OfferFavor
   },
 );
 
-export const fetchOfferDetailsAction = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/fetchOfferDetails',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setOfferDetailsDataLoadingStatus(true));
-    const { data } = await api.get<OfferDetails>(`${APIRoute.Offers}/${id}`);
-    dispatch(setOfferDetailsDataLoadingStatus(false));
-    dispatch(loadOfferDetails(data));
-    dispatch(redirectToRoute(`${AppRoute.Offer}/${id}`));
-  },
-);
-
 export const fetchNearbyOffersAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
@@ -174,5 +159,20 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(redirectToRoute(AppRoute.Root + state.city.name));
+  },
+);
+
+export const fetchOfferDetailsAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOfferDetails',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setOfferDetailsDataLoadingStatus(true));
+    const { data } = await api.get<OfferDetails>(`${APIRoute.Offers}/${id}`);
+    dispatch(setOfferDetailsDataLoadingStatus(false));
+    dispatch(loadOfferDetails(data));
+    dispatch(redirectToRoute(`${AppRoute.Offer}/${id}`));
   },
 );

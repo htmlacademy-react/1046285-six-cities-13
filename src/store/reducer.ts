@@ -19,19 +19,34 @@ import { CITIES, DefaultCity, AuthorizationStatus } from '../const';
 import { City, Offer, OfferDetails } from '../types/offer';
 import { Review } from '../types/review';
 
-const initialState = {
+type InitialState = {
+  city: City;
+  offers: Offer[];
+  favoriteOffers: Offer[];
+  nearbyOffers: Offer[];
+  offerDetails: OfferDetails | null;
+  reviews: Review[];
+  isOffersDataLoading: boolean;
+  isFavoriteOffersDataLoading: boolean;
+  isOfferDetailsDataLoading: boolean;
+  authorizationStatus: string;
+  userEmail: string;
+  error: string | null;
+};
+
+const initialState: InitialState = {
   city: CITIES.find((city) => city.name === DefaultCity.name) as City,
-  offers: [] as Offer[],
-  favoriteOffers: [] as Offer[],
-  nearbyOffers: [] as Offer[],
-  offerDetails: null as OfferDetails | null,
-  reviews: [] as Review[],
+  offers: [],
+  favoriteOffers: [],
+  nearbyOffers: [],
+  offerDetails: null,
+  reviews: [],
   isOffersDataLoading: true,
   isFavoriteOffersDataLoading: true,
   isOfferDetailsDataLoading: true,
-  authorizationStatus: AuthorizationStatus.Unknown as string,
+  authorizationStatus: AuthorizationStatus.Unknown,
   userEmail: '',
-  error: null as string | null,
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
