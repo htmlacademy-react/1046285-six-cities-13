@@ -5,11 +5,12 @@ import { OfferPageDetails } from './offer-page-details';
 import { Map } from '../../map/map';
 import { useAppSelector } from '../../hooks';
 import { OfferList } from '../../offer-list/offer-list';
+import { getOfferDetails, getReviews, getNearbyOffers } from '../../../store/data-process/selectors';
 
 const OfferPage = () => {
-  const offerDetails = useAppSelector((state) => state.offerDetails);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearestOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+  const offerDetails = useAppSelector(getOfferDetails);
+  const reviews = useAppSelector(getReviews);
+  const nearestOffers = useAppSelector(getNearbyOffers).slice(0, 3);
   const [hoveredOfferId, setHoveredOfferId] = useState('');
 
   const handleOfferHover = (id: string) => {

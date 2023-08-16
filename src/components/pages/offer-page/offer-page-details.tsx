@@ -104,7 +104,7 @@ const OfferPageDetails = ({offerDetails, reviews}: OfferPageDetailsProps) => {
               </p>
             </div>
           </div>
-          {reviews.length && <ReviewsList reviews={reviews} />}
+          {reviews.length > 0 && <ReviewsList reviews={reviews} />}
         </div>
       </div>
     </>

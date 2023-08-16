@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { AuthorizationStatus } from '../../const';
 import { fetchFavoriteOfferAction } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
 type FavoriteToggleProps = {
   isFavorite: boolean;
@@ -12,7 +13,7 @@ type FavoriteToggleProps = {
 const FavoriteToggle = ({ isFavorite, parentType, onChangeFavoriteStatus }: FavoriteToggleProps) => {
   const dispatch = useAppDispatch();
   const [favoriteStatus, setfavoriteStatus] = useState<boolean>(isFavorite);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const getClass = () => parentType ? 'place-card' : 'offer';
 

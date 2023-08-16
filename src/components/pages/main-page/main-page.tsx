@@ -6,18 +6,20 @@ import { OfferList } from '../../offer-list/offer-list';
 import { MainEmptyPage } from '../main-empty-page/main-empty-page';
 import { Map } from '../../map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity, loadOffers } from '../../../store/action';
+import { getOffers } from '../../../store/data-process/selectors';
+import { changeCity } from '../../../store/app-process/app-process';
+import { fetchOfferAction } from '../../../store/api-actions';
 
 const MainPage = () => {
   const { city } = useParams();
   const [hoveredOfferId, setHoveredOfferId] = useState('');
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const filterredOffers = offers.filter((offer) => offer.city.name === city);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(changeCity(city as string));
-    dispatch(loadOffers);
+    dispatch(fetchOfferAction);
   }, [city, dispatch]);
 
 
@@ -32,7 +34,7 @@ const MainPage = () => {
       <h1 className="visually-hidden">Cities</h1>
       <CityNavigation />
       {
-        filterredOffers.length ?
+        filterredOffers.length > 0 ?
           <>
             <h2 className="visually-hidden">Places</h2>
             <div className="cities">

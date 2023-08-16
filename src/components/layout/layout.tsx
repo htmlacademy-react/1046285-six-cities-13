@@ -4,6 +4,9 @@ import { AppRoute, AuthorizationStatus, DefaultCity } from '../../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction, fetchFavoriteOfferAction } from '../../store/api-actions';
 import { redirectToRoute } from '../../store/action';
+import { getCity } from '../../store/app-process/selectors';
+import { getUserInfo } from '../../store/user-process/selectors';
+import { getFavoriteOffers } from '../../store/data-process/selectors';
 
 type LayoutProps = {
   authorizationStatus: string;
@@ -12,9 +15,9 @@ type LayoutProps = {
 const Layout = ({ authorizationStatus }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const city = useAppSelector((state) => state.city);
-  const userEmail = useAppSelector((state) => state.userEmail);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const city = useAppSelector(getCity);
+  const userInfo = useAppSelector(getUserInfo);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const currentLocation = location.pathname;
   const locations = {
     login: currentLocation.includes('login'),
@@ -43,6 +46,8 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
     requireFavoriteOffers();
     navigate(`${DefaultCity.name}`);
   }, []);
+
+  console.log(locations.offer || locations.login || locations.favorites)
 
   return (
     <div
@@ -80,9 +85,16 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                             className="header__nav-link header__nav-link--profile"
                             href=""
                           >
-                            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                            <div
+                              style={{
+                                borderRadius: '50%',
+                                backgroundImage: `url(${userInfo?.avatarUrl})`
+                              }}
+                              className="header__avatar-wrapper user__avatar-wrapper"
+                            >
+                            </div>
                             <span className="header__user-name user__name">
-                              {userEmail}
+                              {userInfo?.email}
                             </span>
                             {
                               favoriteOffers.length > 0 && (

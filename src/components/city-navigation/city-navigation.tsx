@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { CITIES } from '../../const';
 import { useAppSelector } from '../hooks';
+import { getCity } from '../../store/app-process/selectors';
 
 const CityNavigation = () => {
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
 
   return (
     <div className="tabs">

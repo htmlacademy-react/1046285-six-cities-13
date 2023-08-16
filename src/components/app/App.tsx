@@ -11,12 +11,14 @@ import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { isOffersLoading, isFavoriteOfferLoading, isOfferDetailsLoading } from '../../store/data-process/selectors';
 
 const App = () => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const isFavoriteOffersDataLoading = useAppSelector((state) => state.isFavoriteOffersDataLoading);
-  const isOfferDetailsDataLoading = useAppSelector((state) => state.isOfferDetailsDataLoading);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const isOffersDataLoading = useAppSelector(isOffersLoading);
+  const isFavoriteOffersDataLoading = useAppSelector(isFavoriteOfferLoading);
+  const isOfferDetailsDataLoading = useAppSelector(isOfferDetailsLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (

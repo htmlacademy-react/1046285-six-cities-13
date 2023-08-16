@@ -1,5 +1,11 @@
 import { City } from './types/offer';
 
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}
+
 export enum AppRoute {
   Root = '/',
   Main = '/:city',

@@ -5,6 +5,7 @@ import useMap from '../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../hooks';
 import { Offer } from '../../types/offer';
+import { getCity } from '../../store/app-process/selectors';
 
 type MapProps = {
   offers: Offer[];
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
 });
 
 const Map = ({offers, mapType, hoveredOfferId}: MapProps) => {
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector(getCity);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
