@@ -25,6 +25,30 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
     favorites: currentLocation.includes('favorites'),
   };
 
+  const getClass = () => {
+    let targetClass = '';
+
+    switch (true) {
+      case locations.login:
+        targetClass = 'page page--gray page--login';
+        break;
+      case locations.offer:
+        targetClass = 'page';
+        break;
+      case locations.favorites:
+        if (favoriteOffers.length > 0) {
+          targetClass = 'page';
+        } else {
+          targetClass = 'page page--favorites-empty';
+        }
+        break;
+      default:
+        targetClass = 'page page--gray page--main';
+    }
+
+    return targetClass;
+  };
+
   const requireFavoriteOffers = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchFavoriteOfferAction());
@@ -51,9 +75,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
 
   return (
     <div
-      className={
-        `page ${locations.offer || locations.favorites ? '' : 'page--gray'} ${locations.login ? 'page--login' : ''} ${locations.offer || locations.login || locations.favorites ? '' : 'page--main'}`
-      }
+      className={getClass()}
     >
       <header className="header">
         <div className="container">
