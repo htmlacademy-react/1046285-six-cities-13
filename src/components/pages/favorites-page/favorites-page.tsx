@@ -8,13 +8,15 @@ const FavoritesPage = () => {
   const offers = useAppSelector(getFavoriteOffers);
 
   return offers.length ? (
-    <main className="page__main page__main--favorites">
-      <div className="page__favorites-container container">
-        <FavoriteList
-          offers={offers}
-          cardsType={OfferCardType.Favorite}
-        />
-      </div>
+    <>
+      <main className="page__main page__main--favorites">
+        <div className="page__favorites-container container">
+          <FavoriteList
+            offers={offers}
+            cardsType={OfferCardType.Favorite}
+          />
+        </div>
+      </main>
       <footer className="footer container">
         <a className="footer__logo-link" href="main.html">
           <img
@@ -26,7 +28,7 @@ const FavoritesPage = () => {
           />
         </a>
       </footer>
-    </main>
+    </>
   ) : (
     <FavoritesEmptyPage />
   );
