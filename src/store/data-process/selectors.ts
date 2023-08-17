@@ -1,7 +1,7 @@
-import { NameSpace } from "../../const";
-import { State } from "../../types/state";
-import { Offer, OfferDetails } from "../../types/offer";
-import { Review } from "../../types/review";
+import { NameSpace } from '../../const';
+import { State } from '../../types/state';
+import { Offer, OfferDetails } from '../../types/offer';
+import { Review } from '../../types/review';
 
 export const getOffers = (state: State): Offer[] => state[NameSpace.Data].offers;
 export const getOfferDetails = (state: State): OfferDetails | null => state[NameSpace.Data].offerDetails;

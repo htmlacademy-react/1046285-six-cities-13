@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { saveToken, dropToken } from '../services/token';
-import {redirectToRoute} from './action';
+import { redirectToRoute } from './action';
 import { AppDispatch, State } from '../types/state';
 import { Offer, OfferDetails, OfferFavoriteStatus } from '../types/offer';
 import { Review } from '../types/review';
@@ -18,8 +18,8 @@ export const clearErrorAction = createAsyncThunk<void, undefined, {
   'app/clearError',
   (_arg, { dispatch }) => {
     setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR,
-  );
-});
+    );
+  });
 
 export const fetchOfferAction = createAsyncThunk<Offer[], undefined, {
   extra: AxiosInstance;
@@ -63,7 +63,7 @@ export const changeStatusFavoriteOfferAction = createAsyncThunk<string, OfferFav
   'data/changeStatusFavoriteOfferAction',
   async ({ id, status }, { extra: api }) => {
     await api.post<OfferDetails>(`${APIRoute.Favorite}/${id}/${status}`);
-    return id
+    return id;
   },
 );
 
@@ -92,19 +92,17 @@ export const postReviewAction = createAsyncThunk<Review, reviewData, {
 }>(
   'data/postReview',
   async ({ id, comment, rating }, { extra: api }) => {
-    const { data } = await api.post<Review>(`${APIRoute.Comments}/${id}`, {rating, comment});
+    const { data } = await api.post<Review>(`${APIRoute.Comments}/${id}`, { rating, comment });
     return data;
   },
 );
 
 export const checkAuthAction = createAsyncThunk<UserInfo, undefined, {
-  dispatch: AppDispatch;
-  state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get(APIRoute.Login);
+    const { data } = await api.get<UserInfo>(APIRoute.Login);
     return data;
   },
 );
@@ -129,7 +127,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, getState, extra: api }) => {
+  async (_arg, { dispatch, getState, extra: api }) => {
     const state = getState();
     await api.delete(APIRoute.Logout);
     dropToken();

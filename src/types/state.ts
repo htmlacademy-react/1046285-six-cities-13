@@ -15,14 +15,14 @@ export type AppProcess = {
 };
 
 export type DataProcess = {
-  offers: Offer[],
-  favoriteOffers: Offer[],
-  nearbyOffers: Offer[],
-  offerDetails: OfferDetails | null,
+  offers: Offer[];
+  favoriteOffers: Offer[];
+  nearbyOffers: Offer[];
+  offerDetails: OfferDetails | null;
   reviews: Review[];
-  isOffersDataLoading: boolean,
-  isFavoriteOffersDataLoading: boolean,
-  isOfferDetailsDataLoading: boolean,
+  isOffersDataLoading: boolean;
+  isFavoriteOffersDataLoading: boolean;
+  isOfferDetailsDataLoading: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { NameSpace } from "../../const";
-import { AppProcess } from "../../types/state";
-import { CITIES } from "../../const";
-import { DefaultCity } from "../../const";
-import { City } from "../../types/offer";
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { AppProcess } from '../../types/state';
+import { CITIES } from '../../const';
+import { DefaultCity } from '../../const';
+import { City } from '../../types/offer';
 
 const initialState: AppProcess = {
   city: CITIES.find((city) => city.name === DefaultCity.name) as City,
@@ -18,7 +18,7 @@ export const appProcess = createSlice({
       state.city = CITIES.find((city) => city.name === action.payload) as City;
     },
     setError: (state, action) => {
-      state.error = action.payload;
+      state.error = action.payload as string | null;
     },
   }
 });

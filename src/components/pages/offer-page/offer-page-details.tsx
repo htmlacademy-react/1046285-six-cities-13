@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { store } from '../../../store';
 import { changeStatusFavoriteOfferAction } from '../../../store/api-actions';
 import { OfferDetails } from '../../../types/offer';
@@ -10,7 +11,7 @@ type OfferPageDetailsProps = {
   reviews: Review[];
 };
 
-const OfferPageDetails = ({offerDetails, reviews}: OfferPageDetailsProps) => {
+const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) => {
   const handleFavoriteToggle = (status: number) => {
     store.dispatch(changeStatusFavoriteOfferAction({ id: offerDetails.id, status: status }));
   };
@@ -109,6 +110,8 @@ const OfferPageDetails = ({offerDetails, reviews}: OfferPageDetailsProps) => {
       </div>
     </>
   );
-};
+});
+
+OfferPageDetails.displayName = 'OfferPageDetails';
 
 export { OfferPageDetails };

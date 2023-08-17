@@ -23,9 +23,7 @@ const MainPage = () => {
   }, [city, dispatch]);
 
 
-  const handleOfferHover = (id: string) => {
-    setHoveredOfferId(id);
-  };
+  const handleOfferHover = (id: string) => setHoveredOfferId(id);
 
   return (
     <main

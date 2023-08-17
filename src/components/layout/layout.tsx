@@ -71,8 +71,6 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
     navigate(`${DefaultCity.name}`);
   }, []);
 
-  console.log(locations.offer || locations.login || locations.favorites)
-
   return (
     <div
       className={getClass()}
@@ -110,7 +108,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
                             <div
                               style={{
                                 borderRadius: '50%',
-                                backgroundImage: `url(${userInfo?.avatarUrl})`
+                                backgroundImage: `url(${userInfo ? userInfo.avatarUrl : '../img/avatar.svg'})`
                               }}
                               className="header__avatar-wrapper user__avatar-wrapper"
                             >
