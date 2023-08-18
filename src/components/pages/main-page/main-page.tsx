@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { OfferCardType, MapType } from '../../../const';
 import { CityNavigation } from '../../city-navigation/city-navigation';
 import { OfferList } from '../../offer-list/offer-list';
@@ -18,7 +19,7 @@ const MainPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(changeCity(city as string));
+    dispatch(changeCity(city));
     dispatch(fetchOfferAction);
   }, [city, dispatch]);
 
@@ -29,6 +30,9 @@ const MainPage = () => {
     <main
       className={`page__main page__main--index ${!filterredOffers.length ? 'page__main--index-empty' : ''}`}
     >
+      <Helmet>
+        <title>6 cities: {city}</title>
+      </Helmet>
       <h1 className="visually-hidden">Cities</h1>
       <CityNavigation />
       {

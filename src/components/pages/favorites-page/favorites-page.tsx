@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { FavoritesEmptyPage } from '../favorites-empty-page/favorites-empty-page';
 import { FavoriteList } from '../../favorite-list/favorite-list';
 import { OfferCardType } from '../../../const';
@@ -9,6 +10,9 @@ const FavoritesPage = () => {
 
   return offers.length ? (
     <>
+      <Helmet>
+        <title>6 cities: Favorites</title>
+      </Helmet>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <FavoriteList

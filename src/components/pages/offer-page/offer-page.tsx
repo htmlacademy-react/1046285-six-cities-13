@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { OfferPageDetails } from './offer-page-details';
 import { useAppSelector } from '../../hooks';
 import { OfferPageNearest } from './offer-page-nearest';
@@ -10,6 +11,9 @@ const OfferPage = () => {
 
   return (
     <main className="page__main page__main--offer">
+      <Helmet>
+        <title>6 cities: {offerDetails?.title}</title>
+      </Helmet>
       <section className="offer">
         {
           offerDetails && (
