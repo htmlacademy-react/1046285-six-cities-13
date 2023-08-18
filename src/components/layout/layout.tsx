@@ -25,6 +25,8 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
     favorites: currentLocation.includes('favorites'),
   };
 
+  console.log(userInfo);
+
   const getClass = () => {
     let targetClass = '';
 

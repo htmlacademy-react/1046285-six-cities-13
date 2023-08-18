@@ -7,7 +7,7 @@ import { AppDispatch, State } from '../types/state';
 import { Offer, OfferDetails, OfferFavoriteStatus } from '../types/offer';
 import { Review } from '../types/review';
 import { AuthData } from '../types/auth-data';
-import { UserData, UserInfo } from '../types/user-data';
+import { UserData } from '../types/user-data';
 import { reviewData } from '../components/reviews-form/reviews-form';
 import { setError } from './app-process/app-process';
 import { NameSpace } from '../const';
@@ -97,17 +97,17 @@ export const postReviewAction = createAsyncThunk<Review, reviewData, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<UserInfo, undefined, {
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<UserInfo>(APIRoute.Login);
+    const { data } = await api.get<UserData>(APIRoute.Login);
     return data;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -115,9 +115,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'user/login',
   async ({ login: email, password }, { dispatch, getState, extra: api }) => {
     const state = getState();
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(token);
+    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Root + state[NameSpace.App].city.name));
+    return data;
   },
 );
 
