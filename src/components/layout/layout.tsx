@@ -7,6 +7,7 @@ import { redirectToRoute } from '../../store/action';
 import { getCity } from '../../store/app-process/selectors';
 import { getUserInfo } from '../../store/user-process/selectors';
 import { getFavoriteOffers } from '../../store/data-process/selectors';
+import { UserData } from '../../types/user-data';
 
 type LayoutProps = {
   authorizationStatus: string;
@@ -16,7 +17,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const city = useAppSelector(getCity);
-  const userInfo = useAppSelector(getUserInfo);
+  const userInfo = useAppSelector(getUserInfo) as UserData | null;
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const currentLocation = location.pathname;
   const locations = {

@@ -1,12 +1,12 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-import { UserInfo } from './user-data';
+import { UserData } from './user-data';
 import { City, Offer, OfferDetails } from './offer';
 import { Review } from './review';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
-  userProfile: UserInfo | null;
+  userProfile: UserData | null;
 };
 
 export type AppProcess = {
