@@ -33,7 +33,7 @@ const FavoriteToggle = ({ isFavorite, parentType, onChangeFavoriteStatus }: Favo
   return (
     <button
       onClick={handleChangeFavoriteStatus}
-      className={`${getClass()}__bookmark-button button ${getClass()}__bookmark-button${favoriteStatus ? '--active' : ''}`}
+      className={`${getClass()}__bookmark-button button ${getClass()}__bookmark-button${favoriteStatus && authStatus === AuthorizationStatus.Auth ? '--active' : ''}`}
       type="button"
     >
       <svg
