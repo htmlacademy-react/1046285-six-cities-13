@@ -55,13 +55,6 @@ const SortingOffers = ({ onSortTypeClick }: OffersSortingProps) => {
             </li>
           ))
         }
-
-        {/* <li
-          className="places__option places__option--active"
-          tabIndex={0}
-        >
-          Popular
-        </li> */}
       </ul>
     </form>
   );

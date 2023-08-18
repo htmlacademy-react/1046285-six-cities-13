@@ -1,5 +1,11 @@
 import { City } from './types/offer';
 
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}
+
 export enum AppRoute {
   Root = '/',
   Main = '/:city',
@@ -16,7 +22,8 @@ export enum AuthorizationStatus {
 
 export enum OfferCardType {
   General = 'cities',
-  Favorite = 'offer',
+  Offer = 'offer',
+  Favorite = 'favorites',
   Nearest = 'near-places',
 }
 

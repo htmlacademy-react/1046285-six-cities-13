@@ -4,13 +4,14 @@ import { ReviewsItem } from '../reviews-item/reviews-item';
 import { ReviewsForm } from '../reviews-form/reviews-form';
 import { Review } from '../../types/review';
 import { AuthorizationStatus } from '../../const';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
 type ReviewsListProps = {
   reviews: Review[];
 };
 
 const ReviewsList = ({reviews}: ReviewsListProps) => {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
   const sortedReviews = [...reviews].sort((previous, current) => {
     const prevDate = new Date(previous.date).getTime();
     const curDate = new Date(current.date).getTime();

@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks';
+import { getCity } from '../../../store/app-process/selectors';
 
 const MainEmptyPage = () => {
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
 
   return (
     <main className="page__main page__main--index page__main--index-empty">

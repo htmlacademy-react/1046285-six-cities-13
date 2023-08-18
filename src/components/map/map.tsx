@@ -4,8 +4,11 @@ import { Marker, Icon, layerGroup } from 'leaflet';
 import useMap from '../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../hooks';
+import { Offer } from '../../types/offer';
+import { getCity } from '../../store/app-process/selectors';
 
 type MapProps = {
+  offers: Offer[];
   mapType: string;
   hoveredOfferId?: string;
 };
@@ -22,9 +25,8 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-const Map = ({mapType, hoveredOfferId}: MapProps) => {
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+const Map = ({offers, mapType, hoveredOfferId}: MapProps) => {
+  const city = useAppSelector(getCity);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

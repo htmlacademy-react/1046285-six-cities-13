@@ -45,3 +45,8 @@ export type OfferDetails = {
   host: Host;
   maxAdults: number;
 };
+
+export type OfferFavoriteStatus = {
+  id: string;
+  status: number;
+};
