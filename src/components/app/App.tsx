@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Layout } from '../layout/layout';
 import { MainPage } from '../pages/main-page/main-page';
@@ -27,43 +28,45 @@ const App = () => {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
+    <HelmetProvider>
+      <HistoryRouter history={browserHistory}>
+        <Routes>
+          <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
+            <Route
+              index
+              path={AppRoute.Main}
+              element={
+                <MainPage />
+              }
+            />
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute
+                  authorizationStatus={authorizationStatus}
+                >
+                  {isFavoriteOffersDataLoading ? <LoadingPage /> : <FavoritesPage />}
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={AppRoute.Login}
+              element={<LoginPage />}
+            />
+            <Route
+              path={`${AppRoute.Offer}/:id`}
+              element={
+                isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage />
+              }
+            />
+          </Route>
           <Route
-            index
-            path={AppRoute.Main}
-            element={
-              <MainPage />
-            }
+            path='*'
+            element={<ErrorPage />}
           />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
-                {isFavoriteOffersDataLoading ? <LoadingPage /> : <FavoritesPage />}
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<LoginPage />}
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={
-              isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage/>
-            }
-          />
-        </Route>
-        <Route
-          path='*'
-          element={<ErrorPage />}
-        />
-      </Routes>
-    </HistoryRouter>
+        </Routes>
+      </HistoryRouter>
+    </HelmetProvider>
   );
 };
 

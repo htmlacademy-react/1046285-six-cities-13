@@ -1,4 +1,5 @@
 import { useRef, FormEvent } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../../store/api-actions';
 
@@ -21,6 +22,9 @@ const LoginPage = () => {
 
   return (
     <main className="page__main page__main--login">
+      <Helmet>
+        <title>6 cities: Sign in</title>
+      </Helmet>
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
