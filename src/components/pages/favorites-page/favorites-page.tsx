@@ -7,7 +7,6 @@ import { getFavoriteOffers } from '../../../store/data-process/selectors';
 
 const FavoritesPage = () => {
   const offers = useAppSelector(getFavoriteOffers);
-  console.log(offers);
 
   return offers.length > 0 ? (
     <>

@@ -19,7 +19,7 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
   const handleCardClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
-    navigate(AppRoute.Offer + `/${offer.id}`);
+    navigate(`${AppRoute.Offer}/${offer.id}`);
   };
 
   const handleFavoriteToggle = (status: number) => {

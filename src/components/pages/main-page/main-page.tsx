@@ -26,7 +26,9 @@ const MainPage = () => {
       dispatch(fetchOfferAction);
     }
 
-    return () => { wasMounted = false };
+    return () => {
+      wasMounted = false;
+    };
   }, [city, dispatch]);
 
 

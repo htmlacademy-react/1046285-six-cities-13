@@ -31,7 +31,7 @@ const OfferPage = () => {
   }, [id, dispatch]);
 
   if (isOfferDetailsDataLoading) {
-    return <LoadingPage />
+    return <LoadingPage />;
   }
 
   return (

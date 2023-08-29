@@ -28,9 +28,7 @@ const LoginPage = () => {
     }
   };
 
-  const handleClick = () => {
-    dispatch(changeCity(randomCityName));
-  };
+  const handleClick = () => dispatch(changeCity(randomCityName));
 
   return (
     <main className="page__main page__main--login">

@@ -13,7 +13,7 @@ const CityNavigation = memo(() => {
     evt.preventDefault();
 
     dispatch(changeCity(evt.currentTarget.dataset.name));
-  }
+  };
 
   return (
     <div className="tabs">
