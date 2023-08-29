@@ -7,8 +7,7 @@ export enum NameSpace {
 }
 
 export enum AppRoute {
-  Root = '/',
-  Main = '/:city',
+  Main = '/',
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer',
@@ -133,8 +132,8 @@ export const WAYS_SORTING_OFFERS: SortType[] = [
   'Top rated first'
 ];
 
-export const DEFAULT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-export const CURRENT_MARKER_SRC = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const DEFAULT_MARKER_SRC = './markup/img/pin.svg';
+export const CURRENT_MARKER_SRC = './markup/img/pin-active.svg';
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 

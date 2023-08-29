@@ -10,7 +10,6 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { reviewData } from '../components/reviews-form/reviews-form';
 import { setError } from './app-process/app-process';
-import { NameSpace } from '../const';
 
 export const clearErrorAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -44,20 +43,16 @@ export const fetchFavoriteOfferAction = createAsyncThunk<Offer[], undefined, {
 );
 
 export const fetchOfferDetailsAction = createAsyncThunk<OfferDetails, string, {
-  dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'data/fetchOfferDetails',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const { data } = await api.get<OfferDetails>(`${APIRoute.Offers}/${id}`);
-    dispatch(redirectToRoute(`${AppRoute.Offer}/${id}`));
     return data;
   },
 );
 
 export const changeStatusFavoriteOfferAction = createAsyncThunk<string, OfferFavoriteStatus, {
-  dispatch: AppDispatch;
-  state: State;
   extra: AxiosInstance;
 }>(
   'data/changeStatusFavoriteOfferAction',
@@ -109,29 +104,25 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
 
 export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
-  state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({ login: email, password }, { dispatch, getState, extra: api }) => {
-    const state = getState();
+  async ({ login: email, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(data.token);
-    dispatch(redirectToRoute(AppRoute.Root + state[NameSpace.App].city.name));
+    dispatch(redirectToRoute(AppRoute.Main));
     return data;
   },
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
-  state: State;
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, { dispatch, getState, extra: api }) => {
-    const state = getState();
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(redirectToRoute(AppRoute.Root + state[NameSpace.App].city.name));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );

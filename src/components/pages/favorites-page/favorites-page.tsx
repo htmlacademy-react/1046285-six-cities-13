@@ -8,7 +8,7 @@ import { getFavoriteOffers } from '../../../store/data-process/selectors';
 const FavoritesPage = () => {
   const offers = useAppSelector(getFavoriteOffers);
 
-  return offers.length ? (
+  return offers.length > 0 ? (
     <>
       <Helmet>
         <title>6 cities: Favorites</title>

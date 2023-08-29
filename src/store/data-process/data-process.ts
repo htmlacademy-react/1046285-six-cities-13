@@ -31,7 +31,6 @@ export const dataProcess = createSlice({
     builder
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOffersDataLoading = true;
-        // state.offers = action.payload;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.isOffersDataLoading = false;
@@ -45,11 +44,14 @@ export const dataProcess = createSlice({
         state.favoriteOffers = action.payload;
       })
       .addCase(changeStatusFavoriteOfferAction.fulfilled, (state, action) => {
-        state.offers.map((offer) => {
-          if (offer.id === action.payload) {
-            offer.isFavorite = !offer.isFavorite;
-          }
-        });
+        const targetOffer = state.offers.find((offer) => offer.id === action.payload);
+        const currentOffer = state.favoriteOffers.find((fOffer) => fOffer.id === action.payload);
+
+        if (targetOffer && !currentOffer) {
+          state.favoriteOffers.push(targetOffer);
+        } else if (targetOffer && currentOffer) {
+          state.favoriteOffers.splice(state.favoriteOffers.indexOf(currentOffer), 1);
+        }
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;

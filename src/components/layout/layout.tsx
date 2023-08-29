@@ -1,10 +1,8 @@
 import { useEffect, SyntheticEvent } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, DefaultCity } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction, fetchFavoriteOfferAction } from '../../store/api-actions';
-import { redirectToRoute } from '../../store/action';
-import { getCity } from '../../store/app-process/selectors';
 import { getUserInfo } from '../../store/user-process/selectors';
 import { getFavoriteOffers } from '../../store/data-process/selectors';
 import { UserData } from '../../types/user-data';
@@ -16,7 +14,6 @@ type LayoutProps = {
 const Layout = ({ authorizationStatus }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const city = useAppSelector(getCity);
   const userInfo = useAppSelector(getUserInfo) as UserData | null;
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const currentLocation = location.pathname;
@@ -59,17 +56,17 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
   const handleSignOut = (evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(logoutAction());
+    navigate(AppRoute.Main);
   };
 
   const handleToFavorite = (evt: SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(redirectToRoute(AppRoute.Favorites));
     requireFavoriteOffers();
+    navigate(AppRoute.Favorites);
   };
 
   useEffect(() => {
     requireFavoriteOffers();
-    navigate(`${DefaultCity.name}`);
   }, []);
 
   return (
@@ -82,7 +79,7 @@ const Layout = ({ authorizationStatus }: LayoutProps) => {
             <div className="header__left">
               <Link
                 className="header__logo-link header__logo-link--active"
-                to={`/${city.name}`}
+                to={`${AppRoute.Main}`}
               >
                 <img
                   className="header__logo"

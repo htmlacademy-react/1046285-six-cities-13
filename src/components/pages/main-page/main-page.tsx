@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { OfferCardType, MapType } from '../../../const';
 import { CityNavigation } from '../../city-navigation/city-navigation';
@@ -10,17 +9,26 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffers } from '../../../store/data-process/selectors';
 import { changeCity } from '../../../store/app-process/app-process';
 import { fetchOfferAction } from '../../../store/api-actions';
+import { getCity } from '../../../store/app-process/selectors';
 
 const MainPage = () => {
-  const { city } = useParams();
+  const city = useAppSelector(getCity).name;
   const [hoveredOfferId, setHoveredOfferId] = useState('');
   const offers = useAppSelector(getOffers);
   const filterredOffers = offers.filter((offer) => offer.city.name === city);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(changeCity(city));
-    dispatch(fetchOfferAction);
+    let wasMounted = true;
+
+    if (wasMounted) {
+      dispatch(changeCity(city));
+      dispatch(fetchOfferAction);
+    }
+
+    return () => {
+      wasMounted = false;
+    };
   }, [city, dispatch]);
 
 
@@ -47,7 +55,7 @@ const MainPage = () => {
                   onHoverOffer={handleOfferHover}
                 />
                 <div className="cities__right-section">
-                  <Map offers={offers} mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
+                  <Map offers={filterredOffers} mapType={MapType.Main} hoveredOfferId={hoveredOfferId}/>
                 </div>
               </div>
             </div>

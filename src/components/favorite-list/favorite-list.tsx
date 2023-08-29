@@ -1,5 +1,4 @@
 import { OfferCard } from '../offer-card/offer-card';
-
 import { Offer } from '../../types/offer';
 
 type FavoriteListProps = {
@@ -8,8 +7,7 @@ type FavoriteListProps = {
 };
 
 const FavoriteList = ({ offers, cardsType }: FavoriteListProps) => {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const cities = new Set(favoriteOffers.map((offer) => offer.city.name));
+  const cities = new Set(offers.map((offer) => offer.city.name));
 
   return (
     <section className="favorites">
@@ -27,7 +25,7 @@ const FavoriteList = ({ offers, cardsType }: FavoriteListProps) => {
               </div>
               <div className="favorites__places">
                 {
-                  favoriteOffers.map((offer) => (
+                  offers.map((offer) => (
                     offer.city.name === city && (
                       <OfferCard
                         key={offer.id}

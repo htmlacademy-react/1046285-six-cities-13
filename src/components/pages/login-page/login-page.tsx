@@ -2,23 +2,33 @@ import { useRef, FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../../store/api-actions';
+import { Link } from 'react-router-dom';
+import { changeCity } from '../../../store/app-process/app-process';
+import { getRandomCityName } from '../../../utils/getRandomCityName';
 
 const LoginPage = () => {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const randomCityName = getRandomCityName();
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current && passwordRef.current) {
+    if (
+      loginRef.current?.value &&
+      passwordRef.current?.value.match(/[a-z, а-я]/gi)?.length &&
+      passwordRef.current?.value.match(/[0-9]/g)?.length
+    ) {
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value
       }));
     }
   };
+
+  const handleClick = () => dispatch(changeCity(randomCityName));
 
   return (
     <main className="page__main page__main--login">
@@ -64,10 +74,16 @@ const LoginPage = () => {
           </form>
         </section>
         <section className="locations locations--login locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
-            </a>
+          <div
+            className="locations__item"
+            onClick={handleClick}
+          >
+            <Link
+              className="locations__item-link"
+              to={`/${randomCityName}`}
+            >
+              <span>{randomCityName}</span>
+            </Link>
           </div>
         </section>
       </div>

@@ -1,35 +1,36 @@
-import { useState } from 'react';
 import { MapType } from '../../../const';
-import { getNearbyOffers } from '../../../store/data-process/selectors';
+import { getNearbyOffers, getOffers } from '../../../store/data-process/selectors';
 import { useAppSelector } from '../../hooks';
 import { Map } from '../../map/map';
 import { OfferList } from '../../offer-list/offer-list';
 import { OfferCardType } from '../../../const';
 
-const OfferPageNearest = () => {
-  const nearestOffers = useAppSelector(getNearbyOffers).slice(0, 3);
-  const [hoveredOfferId, setHoveredOfferId] = useState('');
+type OfferPageNearestProps = {
+  offerId: string;
+};
 
-  const handleOfferHover = (id: string) => setHoveredOfferId(id);
+const OfferPageNearest = ({ offerId }: OfferPageNearestProps) => {
+  const currentOffer = useAppSelector(getOffers).find((offer) => offer.id === offerId) || [];
+  const nearestOffers = useAppSelector(getNearbyOffers).slice(0, 3);
+  const allOffers = nearestOffers.concat(currentOffer);
 
   return (
     <>
       {
         nearestOffers && (
           <Map
-            offers={nearestOffers}
+            hoveredOfferId={offerId}
+            offers={allOffers}
             mapType={MapType.Offer}
-            hoveredOfferId={hoveredOfferId}
           />
         )
       }
       <div className="container">
         <OfferList
-          onHoverOffer={handleOfferHover}
           offers={nearestOffers}
           cardsType={OfferCardType.Nearest}
         />
-      </div>Í
+      </div>
     </>
   );
 };
