@@ -1,9 +1,10 @@
 import { SyntheticEvent } from 'react';
-import { OfferCardType } from '../../const';
+import { AppRoute, OfferCardType } from '../../const';
 import { Offer } from '../../types/offer';
-import { store } from '../../store';
-import { fetchNearbyOffersAction, fetchOfferDetailsAction, fetchReviewsAction, changeStatusFavoriteOfferAction } from '../../store/api-actions';
+import { useAppDispatch } from '../hooks';
+import { changeStatusFavoriteOfferAction } from '../../store/api-actions';
 import { FavoriteToggle } from '../favorite-toggle/favorite-toggle';
+import { useNavigate } from 'react-router-dom';
 
 type OfferCardProps = {
   offer: Offer;
@@ -12,22 +13,24 @@ type OfferCardProps = {
 };
 
 const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const handleCardClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
-    store.dispatch(fetchOfferDetailsAction(offer.id));
-    store.dispatch(fetchNearbyOffersAction(offer.id));
-    store.dispatch(fetchReviewsAction(offer.id));
+    navigate(AppRoute.Offer + `/${offer.id}`);
   };
 
   const handleFavoriteToggle = (status: number) => {
-    store.dispatch(changeStatusFavoriteOfferAction({ id: offer.id, status: status }));
+    dispatch(changeStatusFavoriteOfferAction({ id: offer.id, status: status }));
   };
 
   return (
     <article
       className={`${cardType}__card place-card`}
       onMouseEnter={() => onHover && onHover(offer.id)}
+      onMouseLeave={() => onHover && onHover('')}
     >
       {
         offer.isPremium &&
@@ -83,8 +86,10 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
             {offer.title}
           </a>
         </h2>
-        <p className="place-card__type">
-          {offer.type}
+        <p
+          className="place-card__type"
+        >
+          {offer.type.charAt(0).toUpperCase() + offer.type.slice(1)}
         </p>
       </div>
     </article>

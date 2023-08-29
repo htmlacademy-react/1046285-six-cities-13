@@ -1,10 +1,10 @@
 import { memo } from 'react';
-import { store } from '../../../store';
 import { changeStatusFavoriteOfferAction } from '../../../store/api-actions';
 import { OfferDetails } from '../../../types/offer';
 import { Review } from '../../../types/review';
 import { ReviewsList } from '../../reviews-list/reviews-list';
 import { FavoriteToggle } from '../../favorite-toggle/favorite-toggle';
+import { useAppDispatch } from '../../hooks';
 
 type OfferPageDetailsProps = {
   offerDetails: OfferDetails;
@@ -12,8 +12,10 @@ type OfferPageDetailsProps = {
 };
 
 const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) => {
+  const dispatch = useAppDispatch();
+
   const handleFavoriteToggle = (status: number) => {
-    store.dispatch(changeStatusFavoriteOfferAction({ id: offerDetails.id, status: status }));
+    dispatch(changeStatusFavoriteOfferAction({ id: offerDetails.id, status: status }));
   };
 
   return (
@@ -21,7 +23,7 @@ const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) =
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
           {
-            offerDetails?.images.map((img) => (
+            offerDetails.images.map((img) => (
               <div className="offer__image-wrapper" key={img}>
                 <img
                   className="offer__image"
@@ -36,7 +38,7 @@ const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) =
       <div className="offer__container container">
         <div className="offer__wrapper">
           {
-            offerDetails?.isPremium &&
+            offerDetails.isPremium &&
             (
               <div className="offer__mark">
                 <span>Premium</span>
@@ -45,7 +47,7 @@ const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) =
           }
           <div className="offer__name-wrapper">
             <h1 className="offer__name">
-              {offerDetails?.title}
+              {offerDetails.title}
             </h1>
             <FavoriteToggle
               onChangeFavoriteStatus={handleFavoriteToggle}
@@ -54,29 +56,29 @@ const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) =
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{ width: `${100 / 5 * Math.round(offerDetails?.rating || 0)}%` }} />
+              <span style={{ width: `${100 / 5 * Math.round(offerDetails.rating || 0)}%` }} />
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="offer__rating-value rating__value">{offerDetails?.rating}</span>
+            <span className="offer__rating-value rating__value">{offerDetails.rating}</span>
           </div>
           <ul className="offer__features">
-            <li className="offer__feature offer__feature--entire">{offerDetails?.type}</li>
+            <li className="offer__feature offer__feature--entire">{offerDetails.type.charAt(0).toUpperCase() + offerDetails.type.slice(1)}</li>
             <li className="offer__feature offer__feature--bedrooms">
-              {offerDetails?.bedrooms} Bedrooms
+              {offerDetails.bedrooms} Bedroom{offerDetails.bedrooms > 1 ? 's' : ''}
             </li>
             <li className="offer__feature offer__feature--adults">
-              Max {offerDetails?.maxAdults} adults
+              Max {offerDetails.maxAdults} adult{offerDetails.maxAdults > 1 ? 's' : ''}
             </li>
           </ul>
           <div className="offer__price">
-            <b className="offer__price-value">€{offerDetails?.price}</b>
+            <b className="offer__price-value">€{offerDetails.price}</b>
             <span className="offer__price-text">&nbsp;night</span>
           </div>
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
             <ul className="offer__inside-list">
               {
-                offerDetails?.goods.map((good) => (
+                offerDetails.goods.map((good) => (
                   <li className="offer__inside-item" key={good}>{good}</li>
                 ))
               }
@@ -86,22 +88,22 @@ const OfferPageDetails = memo(({offerDetails, reviews}: OfferPageDetailsProps) =
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
               <div
-                className={`offer__avatar-wrapper ${offerDetails?.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}
+                className={`offer__avatar-wrapper ${offerDetails.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}
               >
                 <img
                   className="offer__avatar user__avatar"
-                  src={offerDetails?.host.avatarUrl}
+                  src={offerDetails.host.avatarUrl}
                   width="74"
                   height="74"
                   alt="Host avatar"
                 />
               </div>
-              <span className="offer__user-name">{offerDetails?.host.name}</span>
-              {offerDetails?.host.isPro && <span className="offer__user-status">Pro</span>}
+              <span className="offer__user-name">{offerDetails.host.name}</span>
+              {offerDetails.host.isPro && <span className="offer__user-status">Pro</span>}
             </div>
             <div className="offer__description">
               <p className="offer__text">
-                {offerDetails?.description}
+                {offerDetails.description}
               </p>
             </div>
           </div>

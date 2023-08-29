@@ -13,13 +13,12 @@ import { useAppSelector } from '../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
-import { isOffersLoading, isFavoriteOfferLoading, isOfferDetailsLoading } from '../../store/data-process/selectors';
+import { isOffersLoading, isFavoriteOfferLoading } from '../../store/data-process/selectors';
 
 const App = () => {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isOffersDataLoading = useAppSelector(isOffersLoading);
   const isFavoriteOffersDataLoading = useAppSelector(isFavoriteOfferLoading);
-  const isOfferDetailsDataLoading = useAppSelector(isOfferDetailsLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
@@ -31,7 +30,7 @@ const App = () => {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
+          <Route path={AppRoute.Main} element={<Layout authorizationStatus={authorizationStatus} />}>
             <Route
               index
               path={AppRoute.Main}
@@ -56,7 +55,8 @@ const App = () => {
             <Route
               path={`${AppRoute.Offer}/:id`}
               element={
-                isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage />
+                // isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage />
+                <OfferPage />
               }
             />
           </Route>

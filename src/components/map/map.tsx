@@ -15,14 +15,14 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: DEFAULT_MARKER_SRC,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [27, 39],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: CURRENT_MARKER_SRC,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [27, 39],
 });
 
 const Map = ({offers, mapType, hoveredOfferId}: MapProps) => {
