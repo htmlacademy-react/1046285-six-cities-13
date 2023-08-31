@@ -5,9 +5,3 @@ export type UserData = {
   email: string;
   token: string;
 };
-
-export type Review = {
-  id: string;
-  review: string;
-  raiting: number;
-};

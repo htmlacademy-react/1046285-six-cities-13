@@ -3,10 +3,16 @@ import { FavoritesEmptyPage } from '../favorites-empty-page/favorites-empty-page
 import { FavoriteList } from '../../favorite-list/favorite-list';
 import { OfferCardType } from '../../../const';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers } from '../../../store/data-process/selectors';
+import { getFavoriteOffers, isFavoriteOfferLoading } from '../../../store/data-process/selectors';
+import { LoadingPage } from '../loading-page/loading-page';
 
 const FavoritesPage = () => {
+  const isFavoriteOffersDataLoading = useAppSelector(isFavoriteOfferLoading);
   const offers = useAppSelector(getFavoriteOffers);
+
+  if (isFavoriteOffersDataLoading) {
+    return <LoadingPage />;
+  }
 
   return offers.length > 0 ? (
     <>

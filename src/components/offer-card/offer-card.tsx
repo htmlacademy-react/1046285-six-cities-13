@@ -12,6 +12,13 @@ type OfferCardProps = {
   onHover?: (id: string) => void;
 };
 
+enum CardImageSize {
+  widthFavorite = 150,
+  widthOther = 260,
+  heightFavorite = 110,
+  heightOther = 210,
+}
+
 const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -50,8 +57,8 @@ const OfferCard = ({ offer, cardType, onHover }: OfferCardProps) => {
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width={cardType === OfferCardType.Favorite ? 150 : 260}
-            height={cardType === OfferCardType.Favorite ? 110 : 200}
+            width={cardType === OfferCardType.Favorite ? CardImageSize.widthFavorite : CardImageSize.widthOther}
+            height={cardType === OfferCardType.Favorite ? CardImageSize.heightFavorite : CardImageSize.heightOther}
             alt="Place image"
           />
         </a>

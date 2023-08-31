@@ -6,9 +6,9 @@ type PrivateRouteProps = PropsWithChildren<{
   authorizationStatus: string;
 }>;
 
-const PrivateRoute = ({authorizationStatus, children}: PrivateRouteProps) => (
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ authorizationStatus, children }: PrivateRouteProps) => (
   authorizationStatus === AuthorizationStatus.Auth ?
-    children
+    <div>{children}</div>
     :
     <Navigate to={AppRoute.Login} />
 );
