@@ -13,12 +13,11 @@ import { useAppSelector } from '../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/user-process/selectors';
-import { isOffersLoading, isFavoriteOfferLoading } from '../../store/data-process/selectors';
+import { isOffersLoading } from '../../store/data-process/selectors';
 
 const App = () => {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isOffersDataLoading = useAppSelector(isOffersLoading);
-  const isFavoriteOffersDataLoading = useAppSelector(isFavoriteOfferLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
@@ -44,7 +43,7 @@ const App = () => {
                 <PrivateRoute
                   authorizationStatus={authorizationStatus}
                 >
-                  {isFavoriteOffersDataLoading ? <LoadingPage /> : <FavoritesPage />}
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />
@@ -55,7 +54,6 @@ const App = () => {
             <Route
               path={`${AppRoute.Offer}/:id`}
               element={
-                // isOfferDetailsDataLoading ? <LoadingPage /> : <OfferPage />
                 <OfferPage />
               }
             />
